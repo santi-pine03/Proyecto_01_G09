@@ -51,10 +51,11 @@ public class RecepcionProductoEntity {
     @JoinColumn(name = "id_bodega", referencedColumnName = "id")
     private Bodega id_bodega;
 
-    @OneToOne
+    //faltan los atributos de la clase bodega, entonces genera error
+   /*  @OneToOne
     @JoinColumn(name = "id_ordenCompra", referencedColumnName = "id")
-    private OrdenCompra id_OrdenCompra;
-    
+    private OrdenCompra id_OrdenCompra; 
+     */
 
     
 

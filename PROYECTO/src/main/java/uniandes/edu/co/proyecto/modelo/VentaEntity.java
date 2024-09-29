@@ -45,11 +45,11 @@ public class VentaEntity {
         this.fecha = fecha;
     }
 
-    @ManyToOne
+     @ManyToOne
     @JoinColumn(name = "id_sucursal", referencedColumnName = "id")
     private SucursalEntity id_sucursal ;
 
     @ManyToOne
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id")
-    private ClienteEntity id_cliente; 
+    @JoinColumn(name = "id_cliente", referencedColumnName = "cedula")
+    private ClienteEntity id_cliente;  
 }
