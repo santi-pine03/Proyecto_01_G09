@@ -6,6 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -43,6 +46,16 @@ public class RecepcionProductoEntity {
     public void setFechaRecepcion(DateFormat fechaRecepcion) {
         this.fechaRecepcion = fechaRecepcion;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "id_bodega", referencedColumnName = "id")
+    private Bodega id_bodega;
+
+    //faltan los atributos de la clase bodega, entonces genera error
+   /*  @OneToOne
+    @JoinColumn(name = "id_ordenCompra", referencedColumnName = "id")
+    private OrdenCompra id_OrdenCompra; 
+     */
 
     
 
