@@ -20,9 +20,9 @@ public class Bodega {
     private Integer tamaniom2;
     @ManyToOne
     @JoinColumn(name="id_sucursal",referencedColumnName = "id")
-    private SucursalEntity id_sucursal;
+    private Sucursal id_sucursal;
 
-    public Bodega(String nombre, Integer tamaniom2, SucursalEntity id_sucursal){
+    public Bodega(String nombre, Integer tamaniom2, Sucursal id_sucursal){
         this.nombre = nombre;
         this.tamaniom2 = tamaniom2;
         this.id_sucursal = id_sucursal;
@@ -47,10 +47,10 @@ public class Bodega {
     public Integer getTamaniom2() {
         return tamaniom2;
     }
-    public void setId_sucursal(SucursalEntity id_sucursal) {
+    public void setId_sucursal(Sucursal id_sucursal) {
         this.id_sucursal = id_sucursal;
     }
-    public SucursalEntity getId_sucursal() {
+    public Sucursal getId_sucursal() {
         return id_sucursal;
     } 
 

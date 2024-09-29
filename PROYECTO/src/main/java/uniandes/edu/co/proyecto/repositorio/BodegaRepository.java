@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import uniandes.edu.co.proyecto.modelo.Bodega;
-import uniandes.edu.co.proyecto.modelo.SucursalEntity;
+import uniandes.edu.co.proyecto.modelo.Sucursal;
 
 public interface BodegaRepository extends JpaRepository<Bodega, Integer>{
 
@@ -22,7 +22,7 @@ public interface BodegaRepository extends JpaRepository<Bodega, Integer>{
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO Bodegas (id,nombre,tamaniom2,id_sucursal) VALUES(idBodegas.nextval, :nombre, :tamaniom2, :id_sucursal)", nativeQuery = true)
-    void insertarBodega(@Param("nombre")String nombre, @Param("tamaniom2")Integer tamaniom2, @Param("id_sucursal")SucursalEntity id_sucursal);
+    void insertarBodega(@Param("nombre")String nombre, @Param("tamaniom2")Integer tamaniom2, @Param("id_sucursal")Sucursal id_sucursal);
 
     @Modifying
     @Transactional
