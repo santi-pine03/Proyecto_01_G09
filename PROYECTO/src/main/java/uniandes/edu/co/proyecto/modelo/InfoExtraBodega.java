@@ -41,7 +41,7 @@ public class InfoExtraBodega {
         this.nivelMinReorden = nivelMinReorden;
     }
 
-    public void setPk(InfoExtraBodegaPK pk_infoBodega) {
+    public void setPk_infoBodega(InfoExtraBodegaPK pk_infoBodega) {
         this.pk_infoBodega = pk_infoBodega;
     }
 

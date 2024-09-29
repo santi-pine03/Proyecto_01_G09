@@ -4,10 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="bodegas")
+@Table(name="BODEGA")
 public class Bodega {
 
     @Id
@@ -16,10 +18,14 @@ public class Bodega {
     private Integer id;
     private String nombre;
     private Integer tamaniom2;
+    @ManyToOne
+    @JoinColumn(name="id_sucursal",referencedColumnName = "id")
+    private SucursalEntity id_sucursal;
 
-    public Bodega(String nombre, Integer tamaniom2){
+    public Bodega(String nombre, Integer tamaniom2, SucursalEntity id_sucursal){
         this.nombre = nombre;
         this.tamaniom2 = tamaniom2;
+        this.id_sucursal = id_sucursal;
     }
     public Bodega(){;}
 
@@ -41,7 +47,11 @@ public class Bodega {
     public Integer getTamaniom2() {
         return tamaniom2;
     }
-
-    
+    public void setId_sucursal(SucursalEntity id_sucursal) {
+        this.id_sucursal = id_sucursal;
+    }
+    public SucursalEntity getId_sucursal() {
+        return id_sucursal;
+    } 
 
 }

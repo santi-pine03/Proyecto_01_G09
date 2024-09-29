@@ -15,8 +15,10 @@ public class DetalleCostoBodega {
     private Integer id;
     private Integer costoUnitario;
     private Integer cantExistencias;
+    private InfoExtraBodegaPK fk_infoExtra;
 
-    public DetalleCostoBodega(Integer costoUnitario, Integer cantExistencias) {
+    public DetalleCostoBodega(Bodega id_bodega, Producto id_producto, Integer costoUnitario, Integer cantExistencias) {
+        this.fk_infoExtra = new InfoExtraBodegaPK(id_bodega, id_producto);
         this.costoUnitario = costoUnitario;
         this.cantExistencias = cantExistencias;
     }
@@ -30,6 +32,7 @@ public class DetalleCostoBodega {
     public void setCantExistencias(Integer cantExistencias) {
         this.cantExistencias = cantExistencias;
     }
+    
     public Integer getId() {
         return id;
     }
@@ -38,6 +41,13 @@ public class DetalleCostoBodega {
     }
     public Integer getCantExistencias() {
         return cantExistencias;
-    }  
+    }
+    public void setFk_infoExtra(InfoExtraBodegaPK fk_infoExtra) {
+        this.fk_infoExtra = fk_infoExtra;
+    }
+    public InfoExtraBodegaPK getFk_infoExtra() {
+        return fk_infoExtra;
+    }
+      
 
 }
