@@ -11,19 +11,19 @@ public class InfoExtraVentaPK implements Serializable {
 
     @ManyToOne
     @JoinColumn(name="id_venta",referencedColumnName = "id")
-    private VentaEntity id_venta;
+    private Venta id_venta;
 
     @ManyToOne
     @JoinColumn(name="id_producto",referencedColumnName = "codigoBarras")
     private Producto id_producto;
 
-    public InfoExtraVentaPK(VentaEntity id_venta, Producto id_producto) {
+    public InfoExtraVentaPK(Venta id_venta, Producto id_producto) {
         super();
         this.id_venta = id_venta;
         this.id_producto = id_producto;
     }
 
-    public void setId_venta(VentaEntity id_venta) {
+    public void setId_venta(Venta id_venta) {
         this.id_venta = id_venta;
     }
 
@@ -31,7 +31,7 @@ public class InfoExtraVentaPK implements Serializable {
         this.id_producto = id_producto;
     }
 
-    public VentaEntity getId_venta() {
+    public Venta getId_venta() {
         return id_venta;
     }
 

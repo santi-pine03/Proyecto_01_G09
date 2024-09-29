@@ -14,7 +14,7 @@ public class InfoExtraVenta {
     @EmbeddedId
     private InfoExtraVentaPK pk_infoVenta;
 
-    public InfoExtraVenta(Producto id_producto, VentaEntity id_venta, Integer cantidad, Integer precioUnitario) {
+    public InfoExtraVenta(Producto id_producto, Venta id_venta, Integer cantidad, Integer precioUnitario) {
         this.pk_infoVenta = new InfoExtraVentaPK(id_venta,id_producto);
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;

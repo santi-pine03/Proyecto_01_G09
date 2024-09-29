@@ -11,21 +11,21 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="Venta")
+@Table(name="Ventas")
 
 
-public class VentaEntity {
+public class Venta {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
     private DateFormat fecha; 
 
-    public VentaEntity(Integer id, DateFormat fecha){
+    public Venta(Integer id, DateFormat fecha){
         this.id = id;
         this.fecha = fecha;
     }
 
-    public VentaEntity()
+    public Venta()
     {;}
 // metodos get
     public Integer getId() {
@@ -47,9 +47,9 @@ public class VentaEntity {
 
      @ManyToOne
     @JoinColumn(name = "id_sucursal", referencedColumnName = "id")
-    private SucursalEntity id_sucursal ;
+    private Sucursal id_sucursal ;
 
     @ManyToOne
     @JoinColumn(name = "id_cliente", referencedColumnName = "cedula")
-    private ClienteEntity id_cliente;  
+    private Cliente id_cliente;  
 }
