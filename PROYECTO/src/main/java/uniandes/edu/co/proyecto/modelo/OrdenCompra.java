@@ -58,6 +58,22 @@ public class OrdenCompra {
     public void setFechaEntrega(Date fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
     }
+
+    public Sucursal getId_sucursal() {
+        return id_sucursal;
+    }
+
+    public void setId_sucursal(Sucursal id_sucursal) {
+        this.id_sucursal = id_sucursal;
+    }
+
+    public Proveedor getId_proveedor() {
+        return id_proveedor;
+    }
+
+    public void setId_proveedor(Proveedor id_proveedor) {
+        this.id_proveedor = id_proveedor;
+    }
     
 
 }
