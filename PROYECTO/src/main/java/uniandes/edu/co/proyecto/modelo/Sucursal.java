@@ -1,6 +1,5 @@
 package uniandes.edu.co.proyecto.modelo;
 
-import org.hibernate.annotations.ValueGenerationType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,7 +9,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="Sucursal")
+@Table(name="Sucursales")
 
 public class Sucursal {
     @Id
