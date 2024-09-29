@@ -9,19 +9,19 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "Ciudad")
 
-public class CiudadEntity {
+public class Ciudad {
     @Id 
     @GeneratedValue(strategy=GenerationType.AUTO)
 
     Integer codigo; 
     String nombre;
 
-    public CiudadEntity(Integer codigo, String nombre){
+    public Ciudad(Integer codigo, String nombre){
         this.codigo = codigo; 
         this.nombre = nombre; 
     }
 // metodos get
-    public CiudadEntity()
+    public Ciudad()
     {;}
 
     public Integer getCodigo() {
@@ -31,7 +31,7 @@ public class CiudadEntity {
     public String getNombre() {
         return nombre;
     }
-    
+
 // metodos set
     public void setCodigo(Integer codigo) {
         this.codigo = codigo;

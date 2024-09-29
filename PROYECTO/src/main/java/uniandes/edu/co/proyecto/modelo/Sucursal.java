@@ -1,6 +1,5 @@
 package uniandes.edu.co.proyecto.modelo;
 
-import org.hibernate.annotations.ValueGenerationType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,7 +11,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="Sucursal")
 
-public class SucursalEntity {
+public class Sucursal {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 
@@ -22,13 +21,14 @@ public class SucursalEntity {
     private Integer telefono;
 
 
-    public SucursalEntity(Integer tamanioM2, String direccion, Integer telefono){
+    public Sucursal(Integer id,Integer tamanioM2, String direccion, Integer telefono){
+        this.id = id;
         this.tamanioM2= tamanioM2;
         this.direccion = direccion;
         this.telefono = telefono;
     }
     //metodos get
-    public SucursalEntity()
+    public Sucursal()
     {;}
     public Integer getId() {
         return id;
@@ -59,6 +59,6 @@ public class SucursalEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_ciudad", referencedColumnName = "codigo")
-    private CiudadEntity id_ciudad; 
+    private Ciudad id_ciudad; 
 
 }

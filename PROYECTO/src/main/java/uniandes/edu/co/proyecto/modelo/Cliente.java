@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 @Table(name= "Cliente")
 
 
-public class ClienteEntity {
+public class Cliente {
     @Id 
     @GeneratedValue(strategy=GenerationType.AUTO)
 
@@ -18,12 +18,12 @@ public class ClienteEntity {
     private String nombre; 
 
 
-    public ClienteEntity(String cedula, String nombre){
+    public Cliente(String cedula, String nombre){
         this.cedula = cedula; 
         this.nombre = nombre; 
     }
 
-    public ClienteEntity()
+    public Cliente()
     {;}
 
     // metodos get 
