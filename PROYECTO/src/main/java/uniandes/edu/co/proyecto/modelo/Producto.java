@@ -4,6 +4,8 @@ import java.util.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,16 +20,26 @@ public class Producto {
     private Integer cantidadPresentacion;
     private Integer unidadMedida;
     private Date fechaExpiracion;
+    @ManyToOne
+    @JoinColumn(name="id_esfecificacionesEmpacado",referencedColumnName = "id")
+    private EspecificacionesEmpacado id_empacado;
+    @ManyToOne
+    @JoinColumn(name="id_categoria",referencedColumnName = "codigo")
+    private Categoria id_categoria;
     public Producto()
     {;}
 
-    public Producto(String nombre, Integer precioUnitarioVenta, String presentacion,Integer cantidadPresentacion, Integer unidadMedida, Date fechaExpiracion) {
+    public Producto(String nombre, Integer precioUnitarioVenta, String presentacion,Integer cantidadPresentacion, Integer unidadMedida, Date fechaExpiracion, 
+    EspecificacionesEmpacado especificaciones, Categoria id_categoria ) {
         this.nombre = nombre;
         this.precioUnitarioVenta = precioUnitarioVenta;
         this.presentacion= presentacion;
         this.cantidadPresentacion= cantidadPresentacion;
         this.unidadMedida= unidadMedida;
         this.fechaExpiracion= fechaExpiracion;
+        this.id_empacado = especificaciones;
+        this.id_categoria = id_categoria;
+
     }
 
     public Integer getCodigoBarras() {
