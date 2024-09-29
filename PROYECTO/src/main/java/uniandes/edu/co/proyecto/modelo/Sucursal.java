@@ -9,7 +9,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="Sucursales")
+@Table(name="Sucursal")
 
 public class Sucursal {
     @Id
@@ -21,7 +21,8 @@ public class Sucursal {
     private Integer telefono;
 
 
-    public Sucursal(Integer tamanioM2, String direccion, Integer telefono){
+    public Sucursal(Integer id,Integer tamanioM2, String direccion, Integer telefono){
+        this.id = id;
         this.tamanioM2= tamanioM2;
         this.direccion = direccion;
         this.telefono = telefono;
