@@ -2,7 +2,9 @@ package uniandes.edu.co.proyecto.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import uniandes.edu.co.proyecto.modelo.Bodega;
 import uniandes.edu.co.proyecto.modelo.Producto;
 import uniandes.edu.co.proyecto.modelo.Sucursal;
 import uniandes.edu.co.proyecto.repositorio.BodegaRepository;
+import uniandes.edu.co.proyecto.repositorio.BodegaRepository.RespuestaPorcentajeOcupacionBodega;
 
 @RestController
 public class BodegaController {
@@ -57,7 +61,7 @@ public class BodegaController {
         
     }
     @GetMapping("/BODEGAS/ocupacion")
-    public ResponseEntity<Collection<Collection<Object>>> obtenerPorcentajeOcupacion(@RequestBody List<Producto> productos) {
+    public ResponseEntity<?> obtenerPorcentajeOcupacion(@RequestBody List<Producto> productos) {
         try {
 
         List<Integer> codBarras = new ArrayList<>();
@@ -66,9 +70,15 @@ public class BodegaController {
             codBarras.add(producto.getCodigoBarras());
         }
         System.out.println(codBarras);                              
-        Collection<Collection<Object>> ocupacion = bodegaRepository.darPorcentajeOcupacionBodega(codBarras);
-        System.out.println(codBarras);
-        return ResponseEntity.ok(ocupacion);
+        Collection<RespuestaPorcentajeOcupacionBodega> ocupacion = bodegaRepository.darPorcentajeOcupacionBodega(codBarras);
+        List<Map<String, Object>> responseList = new ArrayList<>();
+        for (RespuestaPorcentajeOcupacionBodega ocupa : ocupacion) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("id_producto", ocupa.getID_PRODUCTO());
+            response.put("IndiceOcupacion", ocupa.getINDICE_OCUPACION());
+            responseList.add(response);
+        }
+        return ResponseEntity.ok(responseList);
     } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

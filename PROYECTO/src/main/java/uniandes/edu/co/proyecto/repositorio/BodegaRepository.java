@@ -15,6 +15,12 @@ import uniandes.edu.co.proyecto.modelo.Sucursal;
 
 public interface BodegaRepository extends JpaRepository<Bodega, Integer>{
 
+    public interface RespuestaPorcentajeOcupacionBodega {
+
+        Double getINDICE_OCUPACION();
+        Integer getID_PRODUCTO();
+    }
+
     @Query(value = "SELECT * FROM BODEGAS", nativeQuery=true)
     Collection<Bodega> darBodegas();
 
@@ -34,10 +40,10 @@ public interface BodegaRepository extends JpaRepository<Bodega, Integer>{
     void eliminarBodega(@Param("id")Integer id);
 
     //RFC1
-    @Query(value = "SELECT infob.id_producto, (infob.totalExistencias / infob.capacidadAlmacenamiento) AS indiceOcupacion " +
+    @Query(value = "SELECT infob.id_producto AS ID_PRODUCTO, (infob.totalExistencias / infob.capacidadAlmacenamiento) AS INDICE_OCUPACION " +
     "FROM InfoExtraBodegas infob " +
     "WHERE infob.id_producto IN :codBarras", nativeQuery = true)
-    Collection<Collection<Object>> darPorcentajeOcupacionBodega(@Param("codBarras") List<Integer> codBarras);
+    Collection<RespuestaPorcentajeOcupacionBodega> darPorcentajeOcupacionBodega(@Param("codBarras") List<Integer> codBarras);
 
 
     //RFC3
