@@ -27,6 +27,11 @@ void crearSucursalQuery(@Param("id") Integer id,
                         @Param("id_ciudad") Integer ciudadId);
 
 
+@Query(value = "SELECT * FROM Sucursal s JOIN Bodega b ON s.id = b.id_sucursal JOIN Producto p ON b.id_producto = p.id WHERE (p.id = :productoId OR p.nombre = :productoNombre) AND b.cantidad_disponible > 0)", 
+                nativeQuery = true)
+                List<Sucursal> findSucursalesConProductoDisponible(@Param("productoId") Integer productoId, 
+                                                                    @Param("productoNombre") String productoNombre);
+
                         
                         
                         
