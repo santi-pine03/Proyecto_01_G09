@@ -5,14 +5,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="productos")
+@Table(name="ProductosPerecederos")
 public class ProductoPerecedero extends Producto{
 
     private Date fechaVencimiento;
 
     public ProductoPerecedero(String nombre, Integer precioUnitarioVenta, String presentacion,Integer cantidadPresentacion, 
-                                Integer unidadMedida, Date fechaExpiracion, Date fechaVencimiento){
-        super(nombre, precioUnitarioVenta, presentacion, cantidadPresentacion, unidadMedida, fechaExpiracion);
+                                Integer unidadMedida, Date fechaExpiracion, Date fechaVencimiento, EspecificacionesEmpacado especificaciones, Categoria id_categoria){
+        super(nombre, precioUnitarioVenta, presentacion, cantidadPresentacion, unidadMedida, fechaExpiracion, especificaciones, id_categoria);
         this.fechaVencimiento = fechaVencimiento;
     }
 
