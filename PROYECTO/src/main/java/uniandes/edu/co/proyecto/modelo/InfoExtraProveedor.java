@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="infoextraproveedor")
+@Table(name="infoextraproveedores")
 public class InfoExtraProveedor {
     private Integer cantidadExistencias;
 
