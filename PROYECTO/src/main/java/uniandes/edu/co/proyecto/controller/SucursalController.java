@@ -1,5 +1,6 @@
 package uniandes.edu.co.proyecto.controller;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,20 @@ public class SucursalController {
         catch(Exception e){
             return new ResponseEntity<>("Error al crear la sucursal", HttpStatus.INTERNAL_SERVER_ERROR);
         } 
+    }
+
+    @GetMapping("/sucursal/consulta/producto")
+    public ResponseEntity<?> darScurusalesProductoDisponible(@RequestParam Integer producto_id, @RequestParam String nombre) {
+        try {
+             List<Sucursal> sucursales = sucursalRepository.findSucursalesConProductoDisponible(producto_id, nombre);
+            if (sucursales != null) {
+                return ResponseEntity.ok(sucursales);
+            } else {
+                return new ResponseEntity<>("Sucursales con producto dado no encontrado", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error al consultar el producto en la sucursal", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     
