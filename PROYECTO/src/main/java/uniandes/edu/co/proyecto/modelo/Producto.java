@@ -98,4 +98,20 @@ public class Producto {
         this.fechaExpiracion = fechaExpiracion;
     }
 
+    public EspecificacionesEmpacado getId_empacado() {
+        return id_empacado;
+    }
+
+    public void setId_empacado(EspecificacionesEmpacado id_empacado) {
+        this.id_empacado = id_empacado;
+    }
+
+    public Categoria getId_categoria() {
+        return id_categoria;
+    }
+
+    public void setId_categoria(Categoria id_categoria) {
+        this.id_categoria = id_categoria;
+    }
+
 }

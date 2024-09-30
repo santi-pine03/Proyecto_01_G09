@@ -20,17 +20,23 @@ public class OrdenCompraController {
     private OrdenCompraRepository ordenRespository;
 
     @GetMapping("/ordencompras")
-    public Collection<OrdenCompra> ordenCompras(){
+    public Collection<OrdenCompra> ordenCompras() {
         return ordenRespository.darOrdenesCompra();
     }
+
     @PostMapping("/ordencompras/{id}/edit/save")    
-    public ResponseEntity<String> ordeneditGuardar(@PathVariable("id") Integer id, @RequestBody OrdenCompra ordencompra){
+    public ResponseEntity<String> ordeneditGuardar(@PathVariable("id") Integer id, @RequestBody OrdenCompra ordencompra) {
         try {
-            ordenRespository.actualizarOrdenCompra(id, ordencompra.getFechaCreacion(), ordencompra.getEstado(), ordencompra.getFechaEntrega(), ordencompra.getId_proveedor(),ordencompra.getId_sucursal() );
-            return ResponseEntity.ok("Orden de compra actualizado exitosamente");
+            ordenRespository.actualizarOrdenCompra(
+                id,
+                ordencompra.getFechaCreacion(),
+                ordencompra.getFechaEntrega(),
+                ordencompra.getId_proveedor().getNit(),
+                ordencompra.getId_sucursal().getId()
+            );
+            return ResponseEntity.ok("Orden de compra actualizada exitosamente");
         } catch (Exception e) {
-            return new ResponseEntity<>("Error al editar la orden de compra ", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Error al editar la orden de compra", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
 }
