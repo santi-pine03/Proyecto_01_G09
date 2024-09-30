@@ -20,13 +20,13 @@ public class BodegaController {
     @Autowired
     private BodegaRepository bodegaRepository;
 
-    @GetMapping("/BODEGA")
+    @GetMapping("/BODEGAS")
     public Collection<Bodega> bodegas(){
 
         return bodegaRepository.darBodegas();
     }
 
-    @PostMapping("/BODEGA/new/save")
+    @PostMapping("/BODEGAS/new/save")
     public ResponseEntity<String> bodegaGuardar(@RequestBody Bodega bodega){
 
         try{
@@ -39,7 +39,7 @@ public class BodegaController {
         }
 
     }
-    @GetMapping("/BODEGA/{id}/delete")
+    @GetMapping("/BODEGAS/{id}/delete")
     public ResponseEntity<String> bodegaEliminar(@PathVariable("id") Integer id){
 
         try{
