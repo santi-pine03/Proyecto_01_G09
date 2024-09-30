@@ -45,7 +45,7 @@ public class Proveedor {
     public void setNombreContacto(String nombreContacto) {
         this.nombreContacto = nombreContacto;
     }
-    public Proveedor(String nombre, String direccion, Integer telefonoContacto, String nombreContacto){
+    public Proveedor(String nombre, String direccion, String nombreContacto,Integer telefonoContacto){
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefonoContacto = telefonoContacto;
