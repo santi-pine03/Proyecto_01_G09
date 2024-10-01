@@ -30,7 +30,7 @@ public class ProductoController {
     public ResponseEntity<String> guardarProducto( @RequestBody Producto producto){
 
         try {
-            productoRepository.insertarProductos(producto.getNombre(), producto.getPrecioUnitarioVenta(), producto.getPresentacion(), producto.getCantidadPresentacion(), producto.getUnidadMedida(), producto.getFechaExpiracion(), producto.getId_empacado().getId(), producto.getId_categoria().getCodigo()) ;
+            productoRepository.insertarProducto(producto.getNombre(), producto.getPrecioUnitarioVenta(), producto.getPresentacion(), producto.getCantidadPresentacion(), producto.getUnidadMedida(), producto.getFechaExpiracion(), producto.getId_empacado().getId(), producto.getId_categoria().getCodigo()) ;
             return ResponseEntity.ok("Producto guardado exitosamente");
         } catch (Exception e) {
             return new ResponseEntity<>("Error al guardar el producto", HttpStatus.INTERNAL_SERVER_ERROR);
