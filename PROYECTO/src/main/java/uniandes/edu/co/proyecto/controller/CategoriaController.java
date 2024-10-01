@@ -20,11 +20,11 @@ public class CategoriaController {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-    @GetMapping("/Categorias")
+    @GetMapping("/categorias")
     public Collection<Categoria> categorias(){
         return categoriaRepository.darCategorias();
     }
-    @GetMapping("/Categorias/consulta")
+    @GetMapping("/categorias/consulta")
     public ResponseEntity<?> categoriaConsultaCodigo(@RequestParam(required = false) Integer codigo, @RequestParam(required = false) String nombre){
         try{
             if(codigo != null){
@@ -42,7 +42,7 @@ public class CategoriaController {
         }
     }
 
-    @PostMapping("/Categorias/new/save")
+    @PostMapping("/categorias/new/save")
     public ResponseEntity<String> categoriaGuardar(@RequestBody Categoria categoria){
 
         try{

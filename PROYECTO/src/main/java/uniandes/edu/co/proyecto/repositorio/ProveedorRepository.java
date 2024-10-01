@@ -11,12 +11,12 @@ import uniandes.edu.co.proyecto.modelo.Proveedor;
 public interface  ProveedorRepository extends JpaRepository<Proveedor, Integer>{
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO Proveedores (nit,nombre,direccion,nombreContacto,telefonoContacto) VALUES(nitproveedores.nextval, :nombre, :direccion, :nombreContacto, :telefonoContacto)", nativeQuery=true)
-    void insertarProveedor(@Param("nombre")String nombre,@Param("direccion")String direccion,@Param("nombreContacto")String nombreContacto, @Param("telefonoContacto")Integer telefonoContacto );
+    @Query(value = "INSERT INTO Proveedores (nit,nombre,direccion,nombreContacto,telefonoContacto) VALUES(:nit, :nombre, :direccion, :nombreContacto, :telefonoContacto)", nativeQuery=true)
+    void insertarProveedor(@Param("nit")Integer nit,@Param("nombre")String nombre,@Param("direccion")String direccion,@Param("nombreContacto")String nombreContacto, @Param("telefonoContacto")Integer telefonoContacto );
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE Proveedores SET nombre= :nombre,direccion=:direccion,nombreContacto=:nombreContacto,telefonoContacto=:telefonoContacto WHERE id=:id", nativeQuery=true)
-    void actualizarProveedor(@Param("id")Integer id,@Param("nombre")String nombre,@Param("direccion")String direccion,@Param("nombreContacto")String nombreContacto, @Param("telefonoContacto")Integer telefonoContacto );
+    @Query(value = "UPDATE Proveedores SET nombre= :nombre,direccion=:direccion,nombreContacto=:nombreContacto,telefonoContacto=:telefonoContacto WHERE Proveedores.nit=:nit", nativeQuery=true)
+    void actualizarProveedor(@Param("nit")Integer nit,@Param("nombre")String nombre,@Param("direccion")String direccion,@Param("nombreContacto")String nombreContacto, @Param("telefonoContacto")Integer telefonoContacto );
     
 }

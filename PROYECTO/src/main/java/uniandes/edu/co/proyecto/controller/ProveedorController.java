@@ -19,17 +19,17 @@ public class ProveedorController {
     @PostMapping("/proveedores/new/save")    
     public ResponseEntity<String> guardarProveedor( @RequestBody Proveedor proveedor){
         try {
-            proveedorRepository.insertarProveedor(proveedor.getNombre(), proveedor.getDireccion(), proveedor.getNombreContacto(), proveedor.getTelefonoContacto());
+            proveedorRepository.insertarProveedor(proveedor.getNit(),proveedor.getNombre(), proveedor.getDireccion(), proveedor.getNombreContacto(), proveedor.getTelefonoContacto());
             return ResponseEntity.ok("Proveedor guardado exitosamente");
         } catch (Exception e) {
             return new ResponseEntity<>("Error al guardar el proveedor", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PostMapping("/proveedores/{id}/edit/save")    
-    public ResponseEntity<String> proveedorEditGuardar(@PathVariable("id") Integer id, @RequestBody Proveedor proveedor){
+    @PostMapping("/proveedores/{nit}/edit/save")    
+    public ResponseEntity<String> proveedorEditGuardar(@PathVariable("nit") Integer nit, @RequestBody Proveedor proveedor){
         try {
-            proveedorRepository.actualizarProveedor(id, proveedor.getNombre(), proveedor.getDireccion(), proveedor.getNombreContacto(), proveedor.getTelefonoContacto() );
+            proveedorRepository.actualizarProveedor(nit, proveedor.getNombre(), proveedor.getDireccion(), proveedor.getNombreContacto(), proveedor.getTelefonoContacto() );
             return ResponseEntity.ok("Proveedor actualizado exitosamente");
         } catch (Exception e) {
             return new ResponseEntity<>("Error al editar el proveedor ", HttpStatus.INTERNAL_SERVER_ERROR);
