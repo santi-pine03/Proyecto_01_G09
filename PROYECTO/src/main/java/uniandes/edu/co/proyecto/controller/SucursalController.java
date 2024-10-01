@@ -16,15 +16,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+@RestController
 public class SucursalController {
- @Autowired
+
+    @Autowired
     private SucursalRepository sucursalRepository;
 
     @PostMapping("/sucursales/new/save")
-    public ResponseEntity<String> sucursalGuardar( @RequestBody Sucursal sucursal){
+    public ResponseEntity<?> sucursalGuardar(@RequestBody Sucursal sucursal){
         try{
-            sucursalRepository.crearSucursal(sucursal.getId(), sucursal.getTamanioM2(), sucursal.getDireccion(), sucursal.getTelefono(), sucursal.getId_ciudad());
-            return new ResponseEntity<>("Sucursal creada exitosamente", HttpStatus.CREATED);
+            sucursalRepository.crearSucursal(sucursal.getNombre(), sucursal.getTamanioM2(), sucursal.getDireccion(), sucursal.getTelefono(), sucursal.getId_ciudad().getCodigo());
+            return ResponseEntity.status(HttpStatus.CREATED).body("Sucursal creada exitosamente");
         }
         catch(Exception e){
             return new ResponseEntity<>("Error al crear la sucursal", HttpStatus.INTERNAL_SERVER_ERROR);

@@ -27,7 +27,7 @@ public class CategoriaController {
     @GetMapping("/categorias/consulta")
     public ResponseEntity<?> categoriaConsultaCodigo(@RequestParam(required = false) Integer codigo, @RequestParam(required = false) String nombre){
         try{
-            if(codigo == null){
+            if(codigo != null){
             Categoria categoria = categoriaRepository.darCategoriaPorCodigo(codigo);
             return ResponseEntity.ok(categoria);
             }
@@ -54,4 +54,5 @@ public class CategoriaController {
 
         }
     }
+    
 }

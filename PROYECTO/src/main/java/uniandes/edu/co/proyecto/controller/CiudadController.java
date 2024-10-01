@@ -30,7 +30,7 @@ public class CiudadController {
     @PostMapping("/ciudades/new/save")
     public ResponseEntity<String> ciudadGuardar( @RequestBody Ciudad ciudad){
         try{
-            ciudadRepository.crearCiudad(ciudad.getCodigo(), ciudad.getNombre());
+            ciudadRepository.crearCiudad(ciudad.getNombre());
             return new ResponseEntity<>("Ciudad creada exitosamente", HttpStatus.CREATED);
         }
         catch(Exception e){

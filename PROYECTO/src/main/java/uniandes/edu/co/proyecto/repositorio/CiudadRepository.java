@@ -12,11 +12,11 @@ import uniandes.edu.co.proyecto.modelo.Categoria;
 import uniandes.edu.co.proyecto.modelo.Ciudad;
 
 public interface CiudadRepository extends JpaRepository<Ciudad, Integer> {
+
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO Ciudad (codigo, nombre) VALUES (:codigo, :nombre)")
-    void crearCiudad(@Param("codigo") Integer codigo,
-                    @Param("nombre")String nombre);
+    @Query(value = "INSERT INTO Ciudades (codigo, nombre) VALUES(codigoCiudad.nextval, :nombre)", nativeQuery = true)
+    void crearCiudad(@Param("nombre")String nombre);
     
     @Query(value = "SELECT * FROM <Ciudades>", nativeQuery=true)
     Collection<Ciudad>darCiudades();

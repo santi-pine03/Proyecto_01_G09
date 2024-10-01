@@ -20,15 +20,16 @@ public interface SucursalRepository extends JpaRepository<Sucursal, Integer>{
 
 
 @Modifying
-@Query(value = "INSERT INTO Sucursal (id, tamanioM2, direccion, telefono, id_ciudad) VALUES (:id, :tamanioM2, :direccion, :telefono, :id_ciudad)", nativeQuery = true)
-void crearSucursal(@Param("id") Integer id, 
+@Transactional
+@Query(value = "INSERT INTO Sucursales (id,nombre, tamanioM2, direccion, telefono, id_ciudad) VALUES(idSucursales.nextval, :nombre, :tamanioM2, :direccion, :telefono, :id_ciudad)", nativeQuery = true)
+void crearSucursal(@Param("nombre") String nombre,
                         @Param("tamanioM2") Integer tamanioM2, 
                         @Param("direccion") String direccion, 
                         @Param("telefono") Integer telefono, 
-                        @Param("id_ciudad") Ciudad ciudadId);
+                        @Param("id_ciudad") Integer id_ciudad);
 
 
-@Query(value = "SELECT * FROM Sucursal s JOIN Bodega b ON s.id = b.id_sucursal JOIN Producto p ON b.id_producto = p.id WHERE (p.id = :productoId OR p.nombre = :productoNombre) AND b.cantidad_disponible > 0)", 
+@Query(value = "SELECT * FROM Sucursales JOIN Bodega b ON s.id = b.id_sucursal JOIN Producto p ON b.id_producto = p.id WHERE (p.id = :productoId OR p.nombre = :productoNombre) AND b.cantidad_disponible > 0)", 
                 nativeQuery = true)
                 List<Sucursal> findSucursalesConProductoDisponible(@Param("productoId") Integer productoId, 
                                                                     @Param("productoNombre") String productoNombre);
