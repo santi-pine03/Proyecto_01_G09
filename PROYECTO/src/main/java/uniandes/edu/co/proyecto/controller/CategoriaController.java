@@ -31,10 +31,10 @@ public class CategoriaController {
             Categoria categoria = categoriaRepository.darCategoriaPorCodigo(codigo);
             return ResponseEntity.ok(categoria);
             }
-            else{
+            else if(nombre != null){
                 Categoria categoria = categoriaRepository.darCategoriaPorNombre(nombre);
             return ResponseEntity.ok(categoria);
-            }
+            }else return ResponseEntity.ok(categoriaRepository.darCategorias());
         }
         catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

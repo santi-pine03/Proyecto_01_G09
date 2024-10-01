@@ -31,7 +31,7 @@ public interface BodegaRepository extends JpaRepository<Bodega, Integer>{
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO BODEGAS (id,nombre,tamaniom2,id_sucursal) VALUES(idBodegas.nextval, :nombre, :tamaniom2, :id_sucursal)", nativeQuery = true)
-    void insertarBodega(@Param("nombre")String nombre, @Param("tamaniom2")Integer tamaniom2, @Param("id_sucursal")Sucursal id_sucursal);
+    void insertarBodega(@Param("nombre")String nombre, @Param("tamaniom2")Integer tamaniom2, @Param("id_sucursal")Integer id_sucursal);
 
     //RF3
     @Modifying
