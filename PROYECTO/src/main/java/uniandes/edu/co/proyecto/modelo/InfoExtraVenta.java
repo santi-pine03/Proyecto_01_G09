@@ -5,11 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-<<<<<<< HEAD
-@Table(name="infoextraventas")
-=======
 @Table(name="InfoExtraVentas")
->>>>>>> 3d8a95aec7fa6edaa16177aa480abbd75fab6d58
 public class InfoExtraVenta {
 
     private Integer cantidad;

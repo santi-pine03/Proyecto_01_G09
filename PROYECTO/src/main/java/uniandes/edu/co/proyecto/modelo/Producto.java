@@ -2,6 +2,8 @@ package uniandes.edu.co.proyecto.modelo;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +24,7 @@ public class Producto {
     private String presentacion;
     private Integer cantidadPresentacion;
     private Integer unidadMedida;
+    @JsonFormat(pattern = "dd-MMM-yyyy")
     private Date fechaExpiracion;
     @ManyToOne
     @JoinColumn(name="id_esfecificacionesEmpacado",referencedColumnName = "id")
