@@ -13,20 +13,20 @@ import uniandes.edu.co.proyecto.modelo.Sucursal;
 
 public interface BodegaRepository extends JpaRepository<Bodega, Integer>{
 
-    @Query(value = "SELECT * FROM BODEGA", nativeQuery=true)
+    @Query(value = "SELECT * FROM BODEGAS", nativeQuery=true)
     Collection<Bodega> darBodegas();
 
-    @Query(value = "SELECT * FROM Bodegas WHERE id = :id", nativeQuery=true)
+    @Query(value = "SELECT * FROM BODEGAS WHERE id = :id", nativeQuery=true)
     Bodega darBodega(@Param("id")Integer id);
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO Bodegas (id,nombre,tamaniom2,id_sucursal) VALUES(idBodegas.nextval, :nombre, :tamaniom2, :id_sucursal)", nativeQuery = true)
+    @Query(value = "INSERT INTO BODEGAS (id,nombre,tamaniom2,id_sucursal) VALUES(idBodegas.nextval, :nombre, :tamaniom2, :id_sucursal)", nativeQuery = true)
     void insertarBodega(@Param("nombre")String nombre, @Param("tamaniom2")Integer tamaniom2, @Param("id_sucursal")Sucursal id_sucursal);
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM Bodegas WHERE id = :id", nativeQuery=true)
+    @Query(value = "DELETE FROM BODEGAS WHERE id = :id", nativeQuery=true)
     void eliminarBodega(@Param("id")Integer id);
 
 

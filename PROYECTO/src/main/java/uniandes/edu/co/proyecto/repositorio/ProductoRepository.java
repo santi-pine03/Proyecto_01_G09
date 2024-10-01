@@ -22,7 +22,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO Productos (codBarras,nombre,precioUnitarioVenta,presentacion,cantidadPresentacion,unidadMedida, fechaExpiracion, id_empacado, id_categoria) VALUES(nitproveedores.nextval, :nombre, :precioUnitarioVenta, :presentacion,:cantidadPresentacion, :unidadMedida, :fechaExpiracion, :id_empacado, :id_categoria)", nativeQuery=true)
+    @Query(value = "INSERT INTO Productos (codBarras,nombre,precioUnitarioVenta,presentacion,cantidadPresentacion,unidadMedida, fechaExpiracion, id_empacado, id_categoria) VALUES(codBarras.nextval, :nombre, :precioUnitarioVenta, :presentacion,:cantidadPresentacion, :unidadMedida, :fechaExpiracion, :id_empacado, :id_categoria)", nativeQuery=true)
     void insertarProducto(@Param("nombre")String nombre,@Param("precioUnitarioVenta")Integer precioUnitarioVenta,@Param("presentacion")String presentacion, @Param("cantidadPresentacio")Integer cantidadPresentacion, @Param("unidadMedida")Integer unidadMedida,  @Param("fechaExpiracion")Date fechaExpiracion , @Param("id_empacado")Integer id_empacado, @Param("id_categoria")Integer id_categoria);
 
     @Modifying
