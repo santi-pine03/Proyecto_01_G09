@@ -28,7 +28,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
     @Modifying
     @Transactional
     @Query(value = "UPDATE Productos SET codBarras=:codBarras,nombre=:nombre, precioUnitarioVenta=:precioUnitarioVenta,presentacion=:presentacion,cantidadPresentacion=:cantidadPresentacion,unidadMedida=:unidadMedida,fechaExpiracion=:fechaExpiracion,id_empacado=:id_empacado,id_categoria=:id_categoria WHERE codBarras=:codBarras" , nativeQuery=true)
-    void actualizarProducto(@Param("codBarras")Integer codBarras,@Param("nombre")String nombre,@Param("precioUnitarioVenta")Integer precioUnitarioVenta,@Param("presentacion")String presentacion, @Param("cantidadPresentacio")Integer cantidadPresentacion, @Param("unidadMedida")Integer unidadMedida,  @Param("fechaExpiracion")Date fechaExpiracion , @Param("id_empacado")Integer id_empacado, @Param("id_categoria")Integer id_categoria);
+    void actualizarProducto(@Param("codBarras")Integer codBarras,@Param("nombre")String nombre,@Param("precioUnitarioVenta")Integer precioUnitarioVenta,@Param("presentacion")String presentacion, @Param("cantidadPresentacion")Integer cantidadPresentacion, @Param("unidadMedida")Integer unidadMedida,  @Param("fechaExpiracion")Date fechaExpiracion , @Param("id_empacado")Integer id_empacado, @Param("id_categoria")Integer id_categoria);
 
     
     @Query(value= "SELECT * FROM productos WHERE productos.precio >= :precio_in AND productos.precio <= :precio_ma ",nativeQuery=true)

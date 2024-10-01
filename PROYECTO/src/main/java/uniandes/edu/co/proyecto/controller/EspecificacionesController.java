@@ -27,4 +27,5 @@ public class EspecificacionesController {
             return new ResponseEntity<>("Error al crear la Especificacion", HttpStatus.INTERNAL_SERVER_ERROR);
         } 
     }
+    
 }
