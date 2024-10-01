@@ -20,12 +20,12 @@ public class Producto {
     private String nombre;
     private Integer precioUnitarioVenta;
     private String presentacion;
-    private Integer cantidadPresentacion;
+    private Integer cantidadPresentacio;
     private Integer unidadMedida;
     private Date fechaExpiracion;
     @ManyToOne
     @JoinColumn(name="id_esfecificacionesEmpacado",referencedColumnName = "id")
-    private EspecificacionesEmpacado id_empacado;
+    private EspecificacionesEmpacado id_expecificacionesEmpacado;
     @ManyToOne
     @JoinColumn(name="id_categoria",referencedColumnName = "codigo")
     private Categoria id_categoria;
@@ -37,10 +37,10 @@ public class Producto {
         this.nombre = nombre;
         this.precioUnitarioVenta = precioUnitarioVenta;
         this.presentacion= presentacion;
-        this.cantidadPresentacion= cantidadPresentacion;
+        this.cantidadPresentacio= cantidadPresentacion;
         this.unidadMedida= unidadMedida;
         this.fechaExpiracion= fechaExpiracion;
-        this.id_empacado = especificaciones;
+        this.id_expecificacionesEmpacado = especificaciones;
         this.id_categoria = id_categoria;
 
     }
@@ -78,11 +78,11 @@ public class Producto {
     }
 
     public Integer getCantidadPresentacion() {
-        return cantidadPresentacion;
+        return cantidadPresentacio;
     }
 
     public void setCantidadPresentacion(Integer cantidadPresentacion) {
-        this.cantidadPresentacion = cantidadPresentacion;
+        this.cantidadPresentacio = cantidadPresentacion;
     }
 
     public Integer getUnidadMedida() {
@@ -102,11 +102,11 @@ public class Producto {
     }
 
     public EspecificacionesEmpacado getId_empacado() {
-        return id_empacado;
+        return id_expecificacionesEmpacado;
     }
 
     public void setId_empacado(EspecificacionesEmpacado id_empacado) {
-        this.id_empacado = id_empacado;
+        this.id_expecificacionesEmpacado = id_empacado;
     }
 
     public Categoria getId_categoria() {
