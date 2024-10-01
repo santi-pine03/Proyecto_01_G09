@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="ER_Proyecto1" id="2B7D6BCB-D248-D5CC-1CD7-F063A5A0834F" version="3.5">
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="ModeloRelacionalProyecto1" id="2B7D6BCB-D248-D5CC-1CD7-F063A5A0834F" version="3.5">
 <createdBy>User</createdBy>
 <createdTime>2024-08-31 15:10:02 UTC</createdTime>
 <ownerDesignName>ER_Proyecto1</ownerDesignName>
