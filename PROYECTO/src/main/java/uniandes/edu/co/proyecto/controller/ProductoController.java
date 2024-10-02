@@ -2,6 +2,7 @@ package uniandes.edu.co.proyecto.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import uniandes.edu.co.proyecto.modelo.Producto;
 import uniandes.edu.co.proyecto.repositorio.ProductoRepository;
@@ -27,7 +30,7 @@ public class ProductoController {
     public ResponseEntity<String> guardarProducto( @RequestBody Producto producto){
 
         try {
-            productoRepository.insertarProductos(producto.getNombre(), producto.getPrecioUnitarioVenta(), producto.getPresentacion(), producto.getCantidadPresentacion(), producto.getUnidadMedida(), producto.getFechaExpiracion(), producto.getId_empacado().getId(), producto.getId_categoria().getCodigo()) ;
+            productoRepository.insertarProducto(producto.getNombre(), producto.getPrecioUnitarioVenta(), producto.getPresentacion(), producto.getCantidadPresentacion(), producto.getUnidadMedida(), producto.getFechaExpiracion(), producto.getId_empacado().getId(), producto.getId_categoria().getCodigo()) ;
             return ResponseEntity.ok("Producto guardado exitosamente");
         } catch (Exception e) {
             return new ResponseEntity<>("Error al guardar el producto", HttpStatus.INTERNAL_SERVER_ERROR);

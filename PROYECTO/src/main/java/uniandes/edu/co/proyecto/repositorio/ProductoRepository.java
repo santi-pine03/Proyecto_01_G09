@@ -22,21 +22,8 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO Productos (codBarras, nombre, precioUnitarioVenta, presentacion, cantidadPresentacio, unidadMedida, fechaExpiracion,id_expecificacionesEmpacado, id_categoria) VALUES(codBarras.nextval, :nombre, :precioUnitarioVenta, :presentacion, :cantidadPresentacio, :unidadMedida, :fechaExpiracion, :id_expecificacionesEmpacado, :id_categoria)", 
-        nativeQuery = true)
-    void insertarProductos(@Param("nombre") String nombre, 
-                        @Param("precioUnitarioVenta") Integer precioUnitarioVenta, 
-                        @Param("presentacion") String presentacion, 
-                        @Param("cantidadPresentacio") Integer cantidadPresentacio, 
-                        @Param("unidadMedida") Integer unidadMedida, 
-                        @Param("fechaExpiracion") Date fechaExpiracion, 
-                        @Param("id_expecificacionesEmpacado") Integer id_expecificacionesEmpacado, 
-                        @Param("id_categoria") Integer id_categoria);
-
-    @Modifying
-    @Transactional
-    @Query(value = "INSERT INTO Productos (codBarras,nombre,precioUnitarioVenta,presentacion,cantidadPresentacio,unidadMedida, fechaExpiracion,id_expecificacionesEmpacado, id_categoria) VALUES(codBarras.nextval, :nombre, :precioUnitarioVenta, :presentacion,:cantidadPresentacio, :unidadMedida, :fechaExpiracion, :id_expecificacionesEmpacado, :id_categoria)", nativeQuery=true)
-    void insertarProducto(@Param("nombre")String nombre,@Param("precioUnitarioVenta")Integer precioUnitarioVenta,@Param("presentacion")String presentacion, @Param("cantidadPresentacio")Integer cantidadPresentacio, @Param("unidadMedida")Integer unidadMedida,  @Param("fechaExpiracion")Date fechaExpiracion , @Param("id_expecificacionesEmpacado")Integer id_expecificacionesEmpacado, @Param("id_categoria")Integer id_categoria);
+    @Query(value = "INSERT INTO Productos (codBarras,nombre,precioUnitarioVenta,presentacion,cantidadPresentacio,unidadMedia, fechaExpiracion, id_expecificacionesempacado, id_categoria) VALUES(codBarras.nextval, :nombre, :precioUnitarioVenta, :presentacion,:cantidadPresentacion, :unidadMedida, :fechaExpiracion, :id_empacado, :id_categoria)", nativeQuery=true)
+    void insertarProducto(@Param("nombre")String nombre,@Param("precioUnitarioVenta")Integer precioUnitarioVenta,@Param("presentacion")String presentacion, @Param("cantidadPresentacio")Integer cantidadPresentacion, @Param("unidadMedida")Integer unidadMedida,  @Param("fechaExpiracion")Date fechaExpiracion , @Param("id_empacado")Integer id_empacado, @Param("id_categoria")Integer id_categoria);
 
     @Modifying
     @Transactional
