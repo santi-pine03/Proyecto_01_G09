@@ -12,7 +12,7 @@ public class InfoExtraProveedorPK implements Serializable {
     private Proveedor id_proveedor;
 
     @ManyToOne
-    @JoinColumn(name="id_producto",referencedColumnName = "codigoBarras")
+    @JoinColumn(name="id_producto",referencedColumnName = "codBarras")
     private Producto id_producto;
     
     public InfoExtraProveedorPK(Proveedor id_proveedor, Producto id_producto) {

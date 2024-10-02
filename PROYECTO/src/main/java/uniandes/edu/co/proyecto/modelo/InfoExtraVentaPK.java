@@ -14,7 +14,7 @@ public class InfoExtraVentaPK implements Serializable {
     private Venta id_venta;
 
     @ManyToOne
-    @JoinColumn(name="id_producto",referencedColumnName = "codigoBarras")
+    @JoinColumn(name="id_producto",referencedColumnName = "codBarras")
     private Producto id_producto;
 
     public InfoExtraVentaPK(Venta id_venta, Producto id_producto) {

@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 public class Producto {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer codigoBarras;
+    private Integer codBarras;
     private String nombre;
     private Integer precioUnitarioVenta;
     private String presentacion;
@@ -46,11 +46,11 @@ public class Producto {
     }
 
     public Integer getCodigoBarras() {
-        return codigoBarras;
+        return codBarras;
     }
 
     public void setCodigoBarras(Integer codigoBarras) {
-        this.codigoBarras = codigoBarras;
+        this.codBarras = codigoBarras;
     }
 
     public String getNombre() {

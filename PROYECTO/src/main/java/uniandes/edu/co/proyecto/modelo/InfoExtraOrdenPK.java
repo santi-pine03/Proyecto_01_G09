@@ -13,7 +13,7 @@ public class InfoExtraOrdenPK implements Serializable{
     private OrdenCompra id_orden;
 
     @ManyToOne
-    @JoinColumn(name="id_producto",referencedColumnName = "codigoBarras")
+    @JoinColumn(name="id_producto",referencedColumnName = "codBarras")
     private Producto id_producto;
 
     public InfoExtraOrdenPK(OrdenCompra id_orden, Producto id_producto) {
