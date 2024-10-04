@@ -2,8 +2,6 @@ package uniandes.edu.co.proyecto.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import uniandes.edu.co.proyecto.modelo.Producto;
 import uniandes.edu.co.proyecto.repositorio.ProductoRepository;
@@ -30,23 +26,24 @@ public class ProductoController {
     public ResponseEntity<String> guardarProducto( @RequestBody Producto producto){
 
         try {
-            productoRepository.insertarProducto(producto.getNombre(), producto.getPrecioUnitarioVenta(), producto.getPresentacion(), producto.getCantidadPresentacion(), producto.getUnidadMedida(), producto.getFechaExpiracion(), producto.getId_empacado().getId(), producto.getId_categoria().getCodigo()) ;
+            productoRepository.insertarProducto(producto.getNombre(), producto.getPrecioUnitarioVenta(), producto.getPresentacion(), producto.getCantidadPresentacio(), producto.getUnidadMedia(), producto.getFechaExpiracion(), producto.getid_expecificacionesEmpacado().getId(), producto.getId_categoria().getCodigo()) ;
             return ResponseEntity.ok("Producto guardado exitosamente");
         } catch (Exception e) {
-            return new ResponseEntity<>("Error al guardar el producto", HttpStatus.INTERNAL_SERVER_ERROR);
+            e.printStackTrace();
+            return new ResponseEntity<>("Error al guardar el producto" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PostMapping("/productos/{id}/edit/save")    
+    @PostMapping("/productos/{codBarras}/edit/save")    
     public ResponseEntity<String> editarProducto( @PathVariable("codBarras") Integer codBarras,@RequestBody Producto producto){
         try {
-            productoRepository.actualizarProducto(codBarras,producto.getNombre(), producto.getPrecioUnitarioVenta(), producto.getPresentacion(), producto.getCantidadPresentacion(), producto.getUnidadMedida(), producto.getFechaExpiracion(), producto.getId_empacado().getId(), producto.getId_categoria().getCodigo()) ;
-            return ResponseEntity.ok("Producto guardado exitosamente");
+            productoRepository.actualizarProducto(codBarras,producto.getNombre(), producto.getPrecioUnitarioVenta(), producto.getPresentacion(), producto.getCantidadPresentacio(), producto.getUnidadMedia(), producto.getFechaExpiracion(), producto.getid_expecificacionesEmpacado().getId(), producto.getId_categoria().getCodigo()) ;
+            return ResponseEntity.ok("Producto actualizado exitosamente");
         } catch (Exception e) {
-            return new ResponseEntity<>("Error al guardar el producto", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Error al actualizar el producto", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/productos/consulta/id")
+    @GetMapping("/productos/consulta/codBarras")
     public ResponseEntity<?> darProductoId(@RequestParam Integer codBarras) {
         try {
             Object[] producto = productoRepository.darProductoId(codBarras);
@@ -111,7 +108,7 @@ public class ProductoController {
             }
 
             // Eliminar duplicados, si es necesario
-            productos = productos.stream().distinct().collect(Collectors.toList());
+            //productos = productos.stream().distinct().collect(Collectors.toList());
 
             if (productos.isEmpty()) {
                 return new ResponseEntity<>("No se encontraron productos que cumplan con los criterios", HttpStatus.NOT_FOUND);
@@ -119,7 +116,7 @@ public class ProductoController {
 
             return ResponseEntity.ok(productos);
         } catch (Exception e) {
-            return new ResponseEntity<>("Error al consultar los productos", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Error al consultar los productos"+ e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

@@ -13,14 +13,14 @@ public class EspecificacionesEmpacado {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
     private Integer volumen;
-    private Integer peso;
+    private Integer pesoGR;
 
     public EspecificacionesEmpacado()
     {;}
 
     public EspecificacionesEmpacado( Integer volumen,Integer peso) {
         this.volumen = volumen;
-        this.peso = peso;
+        this.pesoGR = peso;
     }
 
     public Integer getId() {
@@ -40,11 +40,11 @@ public class EspecificacionesEmpacado {
     }
 
     public Integer getPeso() {
-        return peso;
+        return pesoGR;
     }
 
     public void setPeso(Integer peso) {
-        this.peso = peso;
+        this.pesoGR = peso;
     }
     
 

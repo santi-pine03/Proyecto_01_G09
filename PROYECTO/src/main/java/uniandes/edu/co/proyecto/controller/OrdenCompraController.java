@@ -28,12 +28,7 @@ public class OrdenCompraController {
     public ResponseEntity<String> ordeneditGuardar(@PathVariable("id") Integer id, @RequestBody OrdenCompra ordencompra) {
         try {
             ordenRespository.actualizarOrdenCompra(
-                id,
-                ordencompra.getFechaCreacion(),
-                ordencompra.getFechaEntrega(),
-                ordencompra.getId_proveedor().getNit(),
-                ordencompra.getId_sucursal().getId()
-            );
+                id );
             return ResponseEntity.ok("Orden de compra actualizada exitosamente");
         } catch (Exception e) {
             return new ResponseEntity<>("Error al editar la orden de compra", HttpStatus.INTERNAL_SERVER_ERROR);

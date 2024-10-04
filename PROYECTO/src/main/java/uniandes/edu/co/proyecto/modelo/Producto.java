@@ -4,16 +4,22 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="productos")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "clazz_", discriminatorType = DiscriminatorType.STRING)
 
 public class Producto {
     @Id
@@ -23,37 +29,37 @@ public class Producto {
     private Integer precioUnitarioVenta;
     private String presentacion;
     private Integer cantidadPresentacio;
-    private Integer unidadMedida;
-    @JsonFormat(pattern = "dd-MMM-yyyy")
+    private Integer unidadMedia;
+    @JsonFormat(pattern ="dd-MMM-yyyy")
     private Date fechaExpiracion;
     @ManyToOne
-    @JoinColumn(name="id_esfecificacionesEmpacado",referencedColumnName = "id")
+    @JoinColumn(name="id_expecificacionesEmpacado",referencedColumnName ="id")
     private EspecificacionesEmpacado id_expecificacionesEmpacado;
     @ManyToOne
-    @JoinColumn(name="id_categoria",referencedColumnName = "codigo")
+    @JoinColumn(name="id_categoria",referencedColumnName ="codigo")
     private Categoria id_categoria;
     public Producto()
     {;}
 
-    public Producto(String nombre, Integer precioUnitarioVenta, String presentacion,Integer cantidadPresentacion, Integer unidadMedida, Date fechaExpiracion, 
-    EspecificacionesEmpacado especificaciones, Categoria id_categoria ) {
+    public Producto(String nombre, Integer precioUnitarioVenta, String presentacion,Integer cantidadPresentacio, Integer unidadMedia, Date fechaExpiracion, 
+    EspecificacionesEmpacado id_expecificacionesEmpacado, Categoria id_categoria ) {
         this.nombre = nombre;
         this.precioUnitarioVenta = precioUnitarioVenta;
         this.presentacion= presentacion;
-        this.cantidadPresentacio= cantidadPresentacion;
-        this.unidadMedida= unidadMedida;
+        this.cantidadPresentacio= cantidadPresentacio;
+        this.unidadMedia= unidadMedia;
         this.fechaExpiracion= fechaExpiracion;
-        this.id_expecificacionesEmpacado = especificaciones;
+        this.id_expecificacionesEmpacado = id_expecificacionesEmpacado;
         this.id_categoria = id_categoria;
 
     }
 
-    public Integer getCodigoBarras() {
+    public Integer getCodBarras() {
         return codBarras;
     }
 
-    public void setCodigoBarras(Integer codigoBarras) {
-        this.codBarras = codigoBarras;
+    public void setCodBarras(Integer codBarras) {
+        this.codBarras = codBarras;
     }
 
     public String getNombre() {
@@ -80,20 +86,20 @@ public class Producto {
         this.presentacion = presentacion;
     }
 
-    public Integer getCantidadPresentacion() {
+    public Integer getCantidadPresentacio() {
         return cantidadPresentacio;
     }
 
-    public void setCantidadPresentacion(Integer cantidadPresentacion) {
-        this.cantidadPresentacio = cantidadPresentacion;
+    public void setCantidadPresentacio(Integer cantidadPresentacio) {
+        this.cantidadPresentacio = cantidadPresentacio;
     }
 
-    public Integer getUnidadMedida() {
-        return unidadMedida;
+    public Integer getUnidadMedia() {
+        return unidadMedia;
     }
 
-    public void setUnidadMedida(Integer unidadMedida) {
-        this.unidadMedida = unidadMedida;
+    public void setUnidadMedida(Integer unidadMedia) {
+        this.unidadMedia = unidadMedia;
     }
 
     public Date getFechaExpiracion() {
@@ -104,12 +110,12 @@ public class Producto {
         this.fechaExpiracion = fechaExpiracion;
     }
 
-    public EspecificacionesEmpacado getId_empacado() {
+    public EspecificacionesEmpacado getid_expecificacionesEmpacado() {
         return id_expecificacionesEmpacado;
     }
 
-    public void setId_empacado(EspecificacionesEmpacado id_empacado) {
-        this.id_expecificacionesEmpacado = id_empacado;
+    public void setid_expecificacionesEmpacado(EspecificacionesEmpacado id_expecificacionesEmpacado) {
+        this.id_expecificacionesEmpacado = id_expecificacionesEmpacado;
     }
 
     public Categoria getId_categoria() {
