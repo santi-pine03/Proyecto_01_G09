@@ -4,22 +4,16 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.persistence.DiscriminatorColumn;
-import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="productos")
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "clazz_", discriminatorType = DiscriminatorType.STRING)
 
 public class Producto {
     @Id

@@ -2,6 +2,8 @@ package uniandes.edu.co.proyecto.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -72,12 +74,12 @@ public class ProductoController {
         }
     }
 
-    @GetMapping("/productos/consulta")
+    @GetMapping("/productos/consulta/avanzadas1")
     public ResponseEntity<?> consultarProductos(
             @RequestParam(required = false) Integer precio_in,
             @RequestParam(required = false) Integer precio_ma,
-            @RequestParam(required = false) Integer fechaMenor,
-            @RequestParam(required = false) Integer fechaMayor,
+            @RequestParam(required = false) Date fechaMenor,
+            @RequestParam(required = false) Date fechaMayor,
             @RequestParam(required = false) Integer id_sucursal,
             @RequestParam(required = false) Integer id_categoria) {
         
@@ -120,9 +122,91 @@ public class ProductoController {
         }
     }
 
+    @GetMapping("/productos/consulta/avanzadass")
+    public ResponseEntity<?> consultarProductos2(
+            @RequestParam(required = false) Integer precio_in,
+            @RequestParam(required = false) Integer precio_ma,
+            @RequestParam(required = false) Date fechaMenor,
+            @RequestParam(required = false) Date fechaMayor,
+            @RequestParam(required = false) Integer id_sucursal,
+            @RequestParam(required = false) Integer id_categoria) {
 
+        List<Producto> productosFiltrados = new ArrayList<>();
+        boolean criterios = false; 
 
-
+        try {
+            // Verifica y aplica cada criterio de búsqueda
+            if (precio_in != null && precio_ma != null) {
+                // Cambiar a List<Producto> y convertir la colección a lista
+                productosFiltrados.addAll(new ArrayList<>(productoRepository.productoPrecio(precio_in, precio_ma)));
+                criterios = true; // Se aplicó un criterio
+            }
+    
+            if (fechaMenor != null) {
+                Collection<Producto> productosConFechaMenor = productoRepository.productofechaMenor(fechaMenor);
+                if (productosFiltrados.isEmpty() && criterios==false ) {
+                    productosFiltrados.addAll(new ArrayList<>(productosConFechaMenor));
+                } else {
+                    productosFiltrados.retainAll(productosConFechaMenor); // Mantener solo los que cumplen el nuevo criterio
+                }
+                criterios = true; // Se aplicó un criterio
+            }
+    
+            if (fechaMayor != null) {
+                Collection<Producto> productosConFechaMayor = productoRepository.productofechaMayor(fechaMayor);
+                if (productosFiltrados.isEmpty()&& criterios==false) {
+                    productosFiltrados.addAll(new ArrayList<>(productosConFechaMayor));
+                } else {
+                    productosFiltrados.retainAll(productosConFechaMayor); // Mantener solo los que cumplen el nuevo criterio
+                }
+                criterios = true; // Se aplicó un criterio
+            }
+    
+            if (id_sucursal != null) {
+                Collection<Producto> productosConSucursal = productoRepository.productoSucursal(id_sucursal);
+                if (productosFiltrados.isEmpty()&& criterios==false) {
+                    productosFiltrados.addAll(new ArrayList<>(productosConSucursal));
+                } else {
+                    productosFiltrados.retainAll(productosConSucursal); // Mantener solo los que cumplen el nuevo criterio
+                }
+                criterios = true; // Se aplicó un criterio
+            }
+    
+            if (id_categoria != null) {
+                Collection<Producto> productosConCategoria = productoRepository.productoCategoria(id_categoria);
+                if (productosFiltrados.isEmpty()&& criterios==false) {
+                    productosFiltrados.addAll(new ArrayList<>(productosConCategoria));
+                } else {
+                    productosFiltrados.retainAll(productosConCategoria); // Mantener solo los que cumplen el nuevo criterio
+                }
+                criterios = true; // Se aplicó un criterio
+            }
+    
+            // Mensaje de respuesta
+            if (productosFiltrados.isEmpty() && criterios) {
+                // Construir un mensaje de error específico
+                StringBuilder errorMessage = new StringBuilder("No se encontraron productos que cumplan con los criterios.");
+                return new ResponseEntity<>(errorMessage.toString(), HttpStatus.NOT_FOUND);
+            }
+    
+            return ResponseEntity.ok(productosFiltrados);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error al consultar los productos: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/productos/consulta/necesitaordenCompra")
+    public ResponseEntity<?> necesitaOrden() {
+        try {
+            Collection<Object[]> productos = productoRepository.productoNecesitaOrden();
+            if (!productos.isEmpty()) {
+                return ResponseEntity.ok(productos);
+            } else {
+                return new ResponseEntity<>("Producto no encontrado", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error al consultar el producto"+ e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
 
