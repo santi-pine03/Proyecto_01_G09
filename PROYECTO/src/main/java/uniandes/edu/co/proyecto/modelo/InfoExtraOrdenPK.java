@@ -9,7 +9,7 @@ import jakarta.persistence.ManyToOne;
 @Embeddable
 public class InfoExtraOrdenPK implements Serializable{
     @ManyToOne
-    @JoinColumn(name="id_orde",referencedColumnName = "id")
+    @JoinColumn(name="id_orden",referencedColumnName = "id")
     private OrdenCompra id_orden;
 
     @ManyToOne

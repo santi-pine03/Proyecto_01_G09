@@ -49,4 +49,9 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
     
     @Query(value= "SELECT p.codBarras AS id_producto, p.nombre AS nombre_producto, b.nombre AS nombre_bodega, s.nombre AS nombre_sucursal,pr.nombre AS nombre_proveedor, ib.totalExistencias AS cantidad_actual FROM Productos p INNER JOIN InfoExtraBodegas ib ON p.codBarras = ib.id_producto INNER JOIN Bodegas b ON ib.id_bodega = b.id INNER JOIN Sucursales s ON b.id_sucursal = s.id LEFT JOIN InfoExtraProveedores iep ON p.codBarras = iep.id_producto LEFT JOIN Proveedores pr ON iep.id_proveedor = pr.nit WHERE ib.totalExistencias < ib.nivelMinimoReorden ORDER BY p.nombre, b.nombre, s.nombre, pr.nombre",nativeQuery=true)
     Collection<Object[]> productoNecesitaOrden () ;
+
+    //Revisar
+    @Query(value= " SELECT * FROM  InfoExtraBodegas",nativeQuery=true)
+    Collection<Object[]> productoNecesitaOrdenes () ;
+
 }

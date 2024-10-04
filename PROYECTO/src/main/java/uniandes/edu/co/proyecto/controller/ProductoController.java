@@ -35,6 +35,7 @@ public class ProductoController {
             return new ResponseEntity<>("Error al guardar el producto" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @PostMapping("/productos/{codBarras}/edit/save")    
     public ResponseEntity<String> editarProducto( @PathVariable("codBarras") Integer codBarras,@RequestBody Producto producto){
         try {
