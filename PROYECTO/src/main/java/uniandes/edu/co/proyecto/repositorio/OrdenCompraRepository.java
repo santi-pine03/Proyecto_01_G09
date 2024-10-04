@@ -13,14 +13,15 @@ import uniandes.edu.co.proyecto.modelo.OrdenCompra;
 
 public interface OrdenCompraRepository  extends JpaRepository<OrdenCompra, Integer>  {
 
-    @Query(value = "SELECT * FROM ORDENCOMPRAS", nativeQuery = true)
-    Collection<OrdenCompra> darOrdenesCompra();
+
      
     @Modifying
     @Transactional
     @Query(value = "UPDATE OrdenCompras SET  estado = 'anulada' WHERE id = :id AND estado = 'vigente'", nativeQuery = true)
     void actualizarOrdenCompra(
         @Param("id") Integer id);
+    @Query(value= " SELECT * FROM  ordenCompras",nativeQuery=true)
+    Collection<Object[]> darOrdenes () ;
 
     @Modifying
     @Transactional

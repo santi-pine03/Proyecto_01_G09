@@ -51,7 +51,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
     Collection<Object[]> productoNecesitaOrden () ;
 
     //Revisar
-    @Query(value= " SELECT * FROM  InfoExtraBodegas",nativeQuery=true)
+    @Query(value= " SELECT * FROM  ordenCompras",nativeQuery=true)
     Collection<Object[]> productoNecesitaOrdenes () ;
 
 }

@@ -19,10 +19,6 @@ public class OrdenCompraController {
     @Autowired
     private OrdenCompraRepository ordenRespository;
 
-    @GetMapping("/ordencompras")
-    public Collection<OrdenCompra> ordenCompras() {
-        return ordenRespository.darOrdenesCompra();
-    }
 
     @PostMapping("/ordencompras/{id}/edit/save")    
     public ResponseEntity<String> ordeneditGuardar(@PathVariable("id") Integer id, @RequestBody OrdenCompra ordencompra) {
@@ -32,6 +28,19 @@ public class OrdenCompraController {
             return ResponseEntity.ok("Orden de compra actualizada exitosamente");
         } catch (Exception e) {
             return new ResponseEntity<>("Error al editar la orden de compra", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/ordencompras")
+    public ResponseEntity<?> necesitaOrden() {
+        try {
+            Collection<Object[]> productos = ordenRespository.darOrdenes();
+            if (!productos.isEmpty()) {
+                return ResponseEntity.ok(productos);
+            } else {
+                return new ResponseEntity<>("No hay orden de compras", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error al obtener las ordenes de compra "+ e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
