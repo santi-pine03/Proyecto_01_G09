@@ -1,6 +1,8 @@
 package uniandes.edu.co.proyecto.modelo;
 import java.util.Date;
 
+import org.hibernate.mapping.List;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
@@ -14,6 +16,7 @@ import jakarta.persistence.Table;
 @Table(name="ordenCompras")
 
 public class OrdenCompra {
+
     @Id 
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id; 
@@ -29,6 +32,7 @@ public class OrdenCompra {
     @JoinColumn(name="nit_proveedor",referencedColumnName = "nit")
     private Proveedor nit_proveedor;
 
+
     public OrdenCompra () 
     {;}
     public OrdenCompra(Date fecha1, String estado, Date fecha2, Proveedor nit_proveedor,Sucursal id_sucursal){
@@ -37,6 +41,7 @@ public class OrdenCompra {
         this.fechaEntrega= fecha2;
         this.nit_proveedor = nit_proveedor ;
         this.id_sucursal = id_sucursal;
+       
     }
     public Integer getId() {
         return id;
@@ -78,6 +83,8 @@ public class OrdenCompra {
     public void setNit_proveedor(Proveedor nit_proveedor) {
         this.nit_proveedor = nit_proveedor;
     }
+    
+
     
 
 }

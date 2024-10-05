@@ -43,6 +43,4 @@ public class InfoExtraOrden {
         this.pk_infoOrden = new InfoExtraOrdenPK(id_orden, id_producto);
     }
     
-
-
 }

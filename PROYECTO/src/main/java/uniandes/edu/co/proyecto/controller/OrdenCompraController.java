@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import uniandes.edu.co.proyecto.modelo.InfoExtraOrden;
 import uniandes.edu.co.proyecto.modelo.OrdenCompra;
+import uniandes.edu.co.proyecto.modelo.Proveedor;
+import uniandes.edu.co.proyecto.modelo.Sucursal;
 import uniandes.edu.co.proyecto.repositorio.OrdenCompraRepository;
 
 
@@ -23,8 +25,11 @@ import uniandes.edu.co.proyecto.repositorio.OrdenCompraRepository;
 public class OrdenCompraController {
     @Autowired
     private OrdenCompraRepository ordenRepository;
+    /* @Autowired 
+    private InfoExtraOrden infoExtraOrden;
 
-
+    @Autowired 
+    private OrdenCompra ordenCompra; */
     @PostMapping("/ordencompras/{id}/edit/save")    
     public ResponseEntity<String> ordeneditGuardar(@PathVariable("id") Integer id, @RequestBody OrdenCompra ordencompra) {
         try {
@@ -49,12 +54,12 @@ public class OrdenCompraController {
         }
     }
 
-     @PostMapping("/crear")
+     @PostMapping("/ordenesCompra/new/save")
      public ResponseEntity<String> crearOrdenCompra(
-            @RequestParam("fechaEntrega") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaEntrega,
-            @RequestParam("idProveedor") Integer idProveedor,
-            @RequestParam("idSucursal") Integer idSucursal,
-            @RequestBody List<InfoExtraOrden> infoExtraOrden) {
+             @RequestParam("fechaEntrega") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaEntrega,
+             @RequestParam("idProveedor") Proveedor idProveedor,
+             @RequestParam("idSucursal") Sucursal idSucursal, 
+             @RequestBody List<InfoExtraOrden> infoExtraOrden) {
 
                 try {
                     ordenRepository.crearOrdenCompra(fechaEntrega, idProveedor, idSucursal);
@@ -66,8 +71,8 @@ public class OrdenCompraController {
                             detalle.getPk_infoOrden(),
                             detalle.getCantidad(), 
                             detalle.getCostoUnitarioCompra());
-                    }
-        
+                    } 
+                   
                     return ResponseEntity.ok("Orden de compra creada exitosamente.");
                 } catch (Exception e) {
                     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al crear la orden de compra.");
