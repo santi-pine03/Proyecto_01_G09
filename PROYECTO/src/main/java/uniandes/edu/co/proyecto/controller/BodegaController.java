@@ -21,6 +21,7 @@ import uniandes.edu.co.proyecto.modelo.Bodega;
 import uniandes.edu.co.proyecto.modelo.Producto;
 import uniandes.edu.co.proyecto.modelo.Sucursal;
 import uniandes.edu.co.proyecto.repositorio.BodegaRepository;
+import uniandes.edu.co.proyecto.repositorio.BodegaRepository.RespuestaInventarioProductosBodega;
 import uniandes.edu.co.proyecto.repositorio.BodegaRepository.RespuestaPorcentajeOcupacionBodega;
 
 @RestController
@@ -67,7 +68,7 @@ public class BodegaController {
         List<Integer> codBarras = new ArrayList<>();
 
         for (Producto producto : productos) {
-            codBarras.add(producto.getCodigoBarras());
+            codBarras.add(producto.getCodBarras());
         }
         System.out.println(codBarras);                              
         Collection<RespuestaPorcentajeOcupacionBodega> ocupacion = bodegaRepository.darPorcentajeOcupacionBodega(codBarras);
@@ -83,12 +84,22 @@ public class BodegaController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    @PostMapping("/BODEGAS/inventario")
-    public ResponseEntity<Collection<Collection<Object>>> obtenerInventarioProductosBodega(@RequestBody Bodega bodega){
+    @GetMapping("/BODEGAS/inventario")
+    public ResponseEntity<?> obtenerInventarioProductosBodega(@RequestBody Bodega bodega){
         try{
             Integer id_bodega = bodega.getId();
+            // id_sucursal = sucursal.getId();
             System.out.println(id_bodega); 
-            Collection<Collection<Object>> inventario = bodegaRepository.darInventarioProductosBodega(id_bodega);
+            Collection<RespuestaInventarioProductosBodega> inventario = bodegaRepository.darInventarioProductosBodega(id_bodega);
+            List<Map<String, Object>> responseList = new ArrayList<>();
+            for (RespuestaInventarioProductosBodega inven : inventario) {
+                Map<String, Object> response = new HashMap<>();
+                response.put("id_producto", inven.getID_PRODUCTO());
+                response.put("cantidad_actual", inven.getCANTIDAD_ACTUAL());
+                response.put("cantidad_minima", inven.getCANTIDAD_MINIMA());
+                response.put("costo_promedio", inven.getCOSTO_PROMEDIO());
+                responseList.add(response);
+            }
             return ResponseEntity.ok(inventario);
         }
         catch (Exception e){

@@ -20,6 +20,13 @@ public interface BodegaRepository extends JpaRepository<Bodega, Integer>{
         Double getINDICE_OCUPACION();
         Integer getID_PRODUCTO();
     }
+    public interface RespuestaInventarioProductosBodega {
+
+        Integer getID_PRODUCTO();
+        Integer getCANTIDAD_ACTUAL();
+        Integer getCANTIDAD_MINIMA();
+        Integer getCOSTO_PROMEDIO();
+    }
 
     @Query(value = "SELECT * FROM BODEGAS", nativeQuery=true)
     Collection<Bodega> darBodegas();
@@ -47,10 +54,10 @@ public interface BodegaRepository extends JpaRepository<Bodega, Integer>{
 
 
     //RFC3
-    @Query(value = "SELECT pro.codBarras, infob.totalExistencias, infob.nivelMinimoReorden, infob.costoPromedio " +
-    "FROM InfoExtraBodegas infob INNER JOIN Productos pro ON infob.id_producto = pro.codBarras " +
+    @Query(value = "SELECT infob.id_producto AS ID_PRODUCTO, infob.totalExistencias AS CANTIDAD_ACTUAL, infob.nivelMinimoReorden AS CANTIDAD_MINIMA, infob.costoPromedio AS COSTO_PROMEDIO " +
+    "FROM InfoExtraBodegas infob " +//INNER JOIN Productos pro ON infob.id_producto = pro.codBarras " +
     "WHERE infob.id_bodega = :id_bodega", nativeQuery = true)
-    Collection<Collection<Object>> darInventarioProductosBodega(@Param("id_bodega") Integer id_bodega);
+    Collection<RespuestaInventarioProductosBodega> darInventarioProductosBodega(@Param("id_bodega") Integer id_bodega);
 
 
 
