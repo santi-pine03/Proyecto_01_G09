@@ -1,15 +1,20 @@
 package uniandes.edu.co.proyecto.controller;
+import java.sql.Date;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import uniandes.edu.co.proyecto.modelo.InfoExtraOrden;
 import uniandes.edu.co.proyecto.modelo.OrdenCompra;
 import uniandes.edu.co.proyecto.repositorio.OrdenCompraRepository;
 
@@ -17,13 +22,13 @@ import uniandes.edu.co.proyecto.repositorio.OrdenCompraRepository;
 @RestController
 public class OrdenCompraController {
     @Autowired
-    private OrdenCompraRepository ordenRespository;
+    private OrdenCompraRepository ordenRepository;
 
 
     @PostMapping("/ordencompras/{id}/edit/save")    
     public ResponseEntity<String> ordeneditGuardar(@PathVariable("id") Integer id, @RequestBody OrdenCompra ordencompra) {
         try {
-            ordenRespository.actualizarOrdenCompra(
+            ordenRepository.actualizarOrdenCompra(
                 id );
             return ResponseEntity.ok("Orden de compra actualizada exitosamente");
         } catch (Exception e) {
@@ -33,7 +38,7 @@ public class OrdenCompraController {
     @GetMapping("/ordencompras")
     public ResponseEntity<?> necesitaOrden() {
         try {
-            Collection<Object[]> productos = ordenRespository.darOrdenes();
+            Collection<Object[]> productos = ordenRepository.darOrdenes();
             if (!productos.isEmpty()) {
                 return ResponseEntity.ok(productos);
             } else {
@@ -43,4 +48,30 @@ public class OrdenCompraController {
             return new ResponseEntity<>("Error al obtener las ordenes de compra "+ e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-}
+
+     @PostMapping("/crear")
+     public ResponseEntity<String> crearOrdenCompra(
+            @RequestParam("fechaEntrega") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaEntrega,
+            @RequestParam("idProveedor") Integer idProveedor,
+            @RequestParam("idSucursal") Integer idSucursal,
+            @RequestBody List<InfoExtraOrden> infoExtraOrden) {
+
+                try {
+                    ordenRepository.crearOrdenCompra(fechaEntrega, idProveedor, idSucursal);
+                    Integer idOrden = ordenRepository.getUltimaOrdenId();
+        
+                    for (InfoExtraOrden detalle : infoExtraOrden) {
+                        ordenRepository.agregarDetalleOrden(
+                            idOrden, 
+                            detalle.getPk_infoOrden(),
+                            detalle.getCantidad(), 
+                            detalle.getCostoUnitarioCompra());
+                    }
+        
+                    return ResponseEntity.ok("Orden de compra creada exitosamente.");
+                } catch (Exception e) {
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al crear la orden de compra.");
+                }
+            }
+    }
+
