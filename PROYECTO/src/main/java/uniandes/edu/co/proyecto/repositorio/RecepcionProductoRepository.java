@@ -15,7 +15,7 @@ public interface RecepcionProductoRepository extends JpaRepository<RecepcionProd
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO RECEPCIONPRODUCTOS (id,fecharecepcion,id_bodega,id_ordencompra) VALUES(idRecepcion.nextval, :fecharecepcion, :id_bodega, :id_orden)", nativeQuery = true)
-    void insertarBodega(@Param("fecharecepcion") Date fecharecepcion, @Param("id_orden")Integer id_orden, @Param("id_bodega")Integer id_bodega);
+    void insertarRecepcionProducto(@Param("fecharecepcion") Date fecharecepcion, @Param("id_orden")Integer id_orden, @Param("id_bodega")Integer id_bodega);
 
     
 }

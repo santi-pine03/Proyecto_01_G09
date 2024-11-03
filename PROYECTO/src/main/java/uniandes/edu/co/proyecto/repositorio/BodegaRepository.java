@@ -62,11 +62,11 @@ public interface BodegaRepository extends JpaRepository<Bodega, Integer>{
     //Se actualiza la cantidad de existencias y costo promedio para el RF10
     @Modifying
     @Transactional
-    @Query(value = "UPDATE InfoExtraBodegas" +
-    "SET costopromedio = (((costopromedio * totalexistencias) + (:nuevo_precio * :nuevas_unidades)) / (totalexistencias + :nuevas_unidades))" + 
-    "totalexistencias = totalexistencias + :nuevas_unidades"+
-    "WHERE id_producto = :id_producto", nativeQuery=true)
-    void actualizarCostoPromedioYCantExistencias(@Param("nuevo_precio") Integer nuevo_precio, @Param("nuevas_unidades") Integer nuevas_unidades,@Param("id_producto") Integer id_producto);
+    @Query(value = "UPDATE InfoExtraBodegas " +
+    "SET costopromedio = (((costopromedio * totalexistencias) + (:nuevo_precio * :nuevas_unidades)) / (totalexistencias + :nuevas_unidades)), " + 
+    "totalexistencias = totalexistencias + :nuevas_unidades "+
+    "WHERE id_producto = :id_producto AND id_bodega = :id_bodega", nativeQuery=true)
+    void actualizarCostoPromedioYCantExistencias(@Param("nuevo_precio") Integer nuevo_precio, @Param("nuevas_unidades") Integer nuevas_unidades, @Param("id_producto") Integer id_producto,  @Param("id_bodega") Integer id_bodega);
 
 
 }

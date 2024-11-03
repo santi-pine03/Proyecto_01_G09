@@ -74,7 +74,7 @@ public interface OrdenCompraRepository  extends JpaRepository<OrdenCompra, Integ
     Integer getUltimaOrdenId();    
 
     @Query(value= " SELECT * FROM  ordenCompras WHERE id = :id_orden",nativeQuery=true)
-    OrdenCompra darOrdenCompra(@Param("id_orden")Integer id);
+    OrdenCompra darOrdenCompra(@Param("id_orden")Integer id_orden);
 
     @Query(value= " SELECT * FROM  InfoExtraOrdenes WHERE id_ordencompra = :id_orden",nativeQuery=true)
     Collection<InfoExtraOrden> darProductosOrdenCompra(@Param("id_orden")Integer id);

@@ -143,5 +143,7 @@ create sequence codigo start with 1 increment by 1;
 create sequence id_especificaciones start with 1 increment by 1;
 create sequence codBarras start with 1000 increment by 1;
 create sequence id_orden start with 1 increment by 1;
+create sequence idRecepcion start with 1 increment by 1;
+
 commit;
 
