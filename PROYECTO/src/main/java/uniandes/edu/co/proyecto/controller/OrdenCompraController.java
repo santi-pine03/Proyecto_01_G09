@@ -1,5 +1,7 @@
 package uniandes.edu.co.proyecto.controller;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -15,16 +17,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import uniandes.edu.co.proyecto.modelo.InfoExtraOrden;
+import uniandes.edu.co.proyecto.modelo.InfoExtraOrdenHelper;
+import uniandes.edu.co.proyecto.modelo.InfoExtraOrdenPK;
 import uniandes.edu.co.proyecto.modelo.OrdenCompra;
+import uniandes.edu.co.proyecto.modelo.OrdenCompraEspec;
+import uniandes.edu.co.proyecto.modelo.OrdenCompraHelper;
+import uniandes.edu.co.proyecto.modelo.Producto;
 import uniandes.edu.co.proyecto.modelo.Proveedor;
 import uniandes.edu.co.proyecto.modelo.Sucursal;
 import uniandes.edu.co.proyecto.repositorio.OrdenCompraRepository;
-
+import uniandes.edu.co.proyecto.repositorio.ProductoRepository;
 
 @RestController
 public class OrdenCompraController {
     @Autowired
     private OrdenCompraRepository ordenRepository;
+
+    @Autowired
+    private ProductoRepository productoRepository;
     /* @Autowired 
     private InfoExtraOrden infoExtraOrden;
 
@@ -55,24 +65,20 @@ public class OrdenCompraController {
     }
 
      @PostMapping("/ordenesCompra/new/save")
-     public ResponseEntity<String> crearOrdenCompra(
-             @RequestParam("fechaEntrega") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaEntrega,
-             @RequestParam("idProveedor") Proveedor idProveedor,
-             @RequestParam("idSucursal") Sucursal idSucursal, 
-             @RequestBody List<InfoExtraOrden> infoExtraOrden) {
+     public ResponseEntity<String> crearOrdenCompra(@RequestBody OrdenCompraEspec ordenCompraEspec){
+         OrdenCompraHelper encabezado = ordenCompraEspec.getEncabezadOrdenCompra();
+         List <InfoExtraOrdenHelper> detalle = ordenCompraEspec.getDetalle();    
 
-                try {
-                    ordenRepository.crearOrdenCompra(fechaEntrega, idProveedor, idSucursal);
-                    Integer idOrden = ordenRepository.getUltimaOrdenId();
-        
-                    for (InfoExtraOrden detalle : infoExtraOrden) {
-                        ordenRepository.agregarDetalleOrden(
-                            idOrden, 
-                            detalle.getPk_infoOrden(),
-                            detalle.getCantidad(), 
-                            detalle.getCostoUnitarioCompra());
-                    } 
-                   
+         try {
+            Date fecha = new Date(encabezado.getFecha_entrega().getTime());
+            ordenRepository.crearOrdenCompra(fecha , LocalDate.now() ,encabezado.getNit_proveedor(), encabezado.getId_sucusal());
+            Integer ordenCompraId = ordenRepository.getUltimaOrdenId2();
+            
+                for (int i = 0; i < detalle.size(); i++) {
+                    InfoExtraOrdenHelper objeto = detalle.get(i);
+                    ordenRepository.agregarDetalleOrden(ordenCompraId, objeto.getCodBarras() , objeto.getCantidad(), objeto.getCostoUnitario());
+                }
+            
                     return ResponseEntity.ok("Orden de compra creada exitosamente.");
                 } catch (Exception e) {
                     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al crear la orden de compra.");

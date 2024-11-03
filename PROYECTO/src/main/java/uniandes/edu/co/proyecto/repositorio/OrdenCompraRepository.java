@@ -1,7 +1,9 @@
 package uniandes.edu.co.proyecto.repositorio;
 
 import java.util.Collection;
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,18 +31,43 @@ public interface OrdenCompraRepository  extends JpaRepository<OrdenCompra, Integ
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO ordenCompra (fechaCreacion, estado, fechaEntrega, id_sucursal, id_proveedor) VALUES (CURRENT_DATE, 'vigente', :fechaEntrega, :id_sucursal, :id_proveedor)", nativeQuery = true)
+    @Query(value = "INSERT INTO ordenCompra (id,fechaCreacion, estado, fechaEntrega, id_sucursal, id_proveedor) VALUES (id_orden.nextval,CURRENT_DATE(), 'vigente', :fechaEntrega, :id_sucursal, :id_proveedor)", nativeQuery = true)
     void crearOrdenCompra(
         @Param("fechaEntrega") Date fechaEntrega,
         @Param("id_proveedor") Proveedor proveedor,
         @Param("id_sucursal") Sucursal sucursal);
-    @Query(value = "INSERT INTO infoextraorden (idOrden, pk_infoOrden, cantidad, costoUnitarioCompra) VALUES (:idOrden,:pk_infoOrden, :idProducto, :cantidad, :costoUnitarioCompra)", nativeQuery = true)
+
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO OrdenCompras (id, fechaCreacion, estado, fechaEntrega, id_sucursal, nit_proveedor) " +
+                    "VALUES (id_orden.nextval, CAST(:fechaCreacion AS DATE), 'VIGENTE', :fechaEntrega, :id_sucursal, :nit_proveedor)", 
+            nativeQuery = true)
+    void crearOrdenCompra(
+        @Param("fechaEntrega") Date fechaEntrega,
+        @Param("fechaCreacion") LocalDate now,
+        @Param("nit_proveedor") Integer proveedor,
+        @Param("id_sucursal") Integer sucursal);
+    
+    @Query(value = "INSERT INTO infoextraorden ( pk_infoOrden, cantidad, costoUnitarioCompra) VALUES (:pk_infoOrden, :cantidad, :costoUnitarioCompra)", nativeQuery = true)
     void agregarDetalleOrden(
-        @Param("idOrden") Integer idOrden,
         @Param("pk_infoOrden") InfoExtraOrdenPK pk_infoOrden,
         @Param("cantidad") Integer cantidad,
         @Param("costoUnitarioCompra") Integer costoUnitarioCompra);
+
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO infoextraordenes ( id_ordencompra,id_producto, cantidad, costoUnitarioCompra) VALUES (:id_ordencompra,:id_producto, :cantidad, :costoUnitarioCompra)", nativeQuery = true)
+    void agregarDetalleOrden(
+            @Param("id_ordencompra") Integer id_orden,
+            @Param("id_producto") Integer id_producto,
+            @Param("cantidad") Integer cantidad,
+            @Param("costoUnitarioCompra") Integer costoUnitarioCompra);
+
     
+    @Query(value = "SELECT id FROM OrdenCompras ORDER BY fechaCreacion DESC, id DESC FETCH FIRST 1 ROW ONLY", 
+    nativeQuery = true)
+    Integer getUltimaOrdenId2();
+
     @Query(value = "SELECT LAST_INSERT_ID()", nativeQuery = true)
     Integer getUltimaOrdenId();    
 
