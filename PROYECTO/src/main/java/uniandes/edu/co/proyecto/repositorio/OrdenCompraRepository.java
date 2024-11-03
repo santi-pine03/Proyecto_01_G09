@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import uniandes.edu.co.proyecto.modelo.InfoExtraOrden;
 import uniandes.edu.co.proyecto.modelo.InfoExtraOrdenPK;
 import uniandes.edu.co.proyecto.modelo.OrdenCompra;
 import uniandes.edu.co.proyecto.modelo.Proveedor;
@@ -24,6 +25,7 @@ public interface OrdenCompraRepository  extends JpaRepository<OrdenCompra, Integ
     @Query(value = "UPDATE OrdenCompras SET  estado = 'anulada' WHERE id = :id AND estado = 'vigente'", nativeQuery = true)
     void actualizarOrdenCompra(
         @Param("id") Integer id);
+    
     @Query(value= " SELECT * FROM  ordenCompras",nativeQuery=true)
     Collection<Object[]> darOrdenes () ;
 
@@ -34,6 +36,7 @@ public interface OrdenCompraRepository  extends JpaRepository<OrdenCompra, Integ
         @Param("fechaEntrega") Date fechaEntrega,
         @Param("id_proveedor") Proveedor proveedor,
         @Param("id_sucursal") Sucursal sucursal);
+
     @Query(value = "INSERT INTO infoextraorden (idOrden, pk_infoOrden, cantidad, costoUnitarioCompra) VALUES (:idOrden,:pk_infoOrden, :idProducto, :cantidad, :costoUnitarioCompra)", nativeQuery = true)
     void agregarDetalleOrden(
         @Param("idOrden") Integer idOrden,
@@ -43,6 +46,15 @@ public interface OrdenCompraRepository  extends JpaRepository<OrdenCompra, Integ
     
     @Query(value = "SELECT LAST_INSERT_ID()", nativeQuery = true)
     Integer getUltimaOrdenId();    
+
+    @Query(value= " SELECT * FROM  ordenCompras WHERE id = :id_orden",nativeQuery=true)
+    OrdenCompra darOrdenCompra(@Param("id_orden")Integer id);
+
+    @Query(value= " SELECT * FROM  InfoExtraOrdenes WHERE id_ordencompra = :id_orden",nativeQuery=true)
+    Collection<InfoExtraOrden> darProductosOrdenCompra(@Param("id_orden")Integer id);
+
+    @Query(value= " UPDATE OrdenCompras SET estado = 'ENTREGADA' WHERE id = :id_orden",nativeQuery=true)
+    void ordenCompraEntregada(@Param("id_orden")Integer id);
 
 }
 

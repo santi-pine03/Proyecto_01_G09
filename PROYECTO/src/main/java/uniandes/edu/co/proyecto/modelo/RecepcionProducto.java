@@ -14,19 +14,19 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "RecepcionProductos")
 
-public class RecepcionProductoEntity {
+public class RecepcionProducto {
    @Id 
    @GeneratedValue(strategy=GenerationType.AUTO)
 
     private Integer id; 
     private DateFormat fechaRecepcion;
 
-    public RecepcionProductoEntity(Integer id, DateFormat fechaRecepcion){
+    public RecepcionProducto(Integer id, DateFormat fechaRecepcion){
         this.id = id;
         this.fechaRecepcion = fechaRecepcion;
     }
 
-    public RecepcionProductoEntity()
+    public RecepcionProducto()
     {;}
 
     // metodos get 
