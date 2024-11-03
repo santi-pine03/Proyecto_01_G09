@@ -1,10 +1,8 @@
 package uniandes.edu.co.proyecto.repositorio;
 
-import java.util.Collection;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Collection;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,7 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import uniandes.edu.co.proyecto.modelo.InfoExtraOrden;
 import uniandes.edu.co.proyecto.modelo.InfoExtraOrdenPK;
 import uniandes.edu.co.proyecto.modelo.OrdenCompra;
 import uniandes.edu.co.proyecto.modelo.Proveedor;
@@ -42,7 +39,7 @@ public interface OrdenCompraRepository  extends JpaRepository<OrdenCompra, Integ
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO OrdenCompras (id, fechaCreacion, estado, fechaEntrega, id_sucursal, nit_proveedor) " +
-                    "VALUES (id_orden.nextval, CAST(:fechaCreacion AS DATE), 'VIGENTE', :fechaEntrega, :id_sucursal, :nit_proveedor)", 
+                    "VALUES (id_ordencompra.nextval, CAST(:fechaCreacion AS DATE), 'VIGENTE', :fechaEntrega, :id_sucursal, :nit_proveedor)", 
             nativeQuery = true)
     void crearOrdenCompra(
         @Param("fechaEntrega") Date fechaEntrega,

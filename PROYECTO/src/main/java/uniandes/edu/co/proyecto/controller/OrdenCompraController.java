@@ -1,30 +1,22 @@
 package uniandes.edu.co.proyecto.controller;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import uniandes.edu.co.proyecto.modelo.InfoExtraOrden;
 import uniandes.edu.co.proyecto.modelo.InfoExtraOrdenHelper;
-import uniandes.edu.co.proyecto.modelo.InfoExtraOrdenPK;
 import uniandes.edu.co.proyecto.modelo.OrdenCompra;
 import uniandes.edu.co.proyecto.modelo.OrdenCompraEspec;
 import uniandes.edu.co.proyecto.modelo.OrdenCompraHelper;
-import uniandes.edu.co.proyecto.modelo.Producto;
-import uniandes.edu.co.proyecto.modelo.Proveedor;
-import uniandes.edu.co.proyecto.modelo.Sucursal;
 import uniandes.edu.co.proyecto.repositorio.OrdenCompraRepository;
 import uniandes.edu.co.proyecto.repositorio.ProductoRepository;
 
@@ -71,8 +63,10 @@ public class OrdenCompraController {
 
          try {
             Date fecha = new Date(encabezado.getFecha_entrega().getTime());
+            System.out.println(fecha);
             ordenRepository.crearOrdenCompra(fecha , LocalDate.now() ,encabezado.getNit_proveedor(), encabezado.getId_sucusal());
             Integer ordenCompraId = ordenRepository.getUltimaOrdenId2();
+            System.out.println(ordenCompraId);
             
                 for (int i = 0; i < detalle.size(); i++) {
                     InfoExtraOrdenHelper objeto = detalle.get(i);
