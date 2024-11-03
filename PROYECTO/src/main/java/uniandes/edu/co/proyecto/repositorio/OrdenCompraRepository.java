@@ -50,6 +50,8 @@ public interface OrdenCompraRepository  extends JpaRepository<OrdenCompra, Integ
         @Param("nit_proveedor") Integer proveedor,
         @Param("id_sucursal") Integer sucursal);
     
+    @Modifying
+    @Transactional
     @Query(value = "INSERT INTO infoextraorden ( pk_infoOrden, cantidad, costoUnitarioCompra) VALUES (:pk_infoOrden, :cantidad, :costoUnitarioCompra)", nativeQuery = true)
     void agregarDetalleOrden(
         @Param("pk_infoOrden") InfoExtraOrdenPK pk_infoOrden,
@@ -77,8 +79,10 @@ public interface OrdenCompraRepository  extends JpaRepository<OrdenCompra, Integ
     OrdenCompra darOrdenCompra(@Param("id_orden")Integer id_orden);
 
     @Query(value= " SELECT * FROM  InfoExtraOrdenes WHERE id_ordencompra = :id_orden",nativeQuery=true)
-    Collection<InfoExtraOrden> darProductosOrdenCompra(@Param("id_orden")Integer id);
+    Collection<Object[]> darProductosOrdenCompra(@Param("id_orden")Integer id);
 
+    @Modifying
+    @Transactional
     @Query(value= " UPDATE OrdenCompras SET estado = 'ENTREGADA' WHERE id = :id_orden",nativeQuery=true)
     void ordenCompraEntregada(@Param("id_orden")Integer id);
 

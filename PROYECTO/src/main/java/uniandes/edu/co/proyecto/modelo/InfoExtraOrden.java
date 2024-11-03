@@ -12,6 +12,14 @@ public class InfoExtraOrden {
 
     @EmbeddedId
     private InfoExtraOrdenPK pk_infoOrden;
+    
+    public InfoExtraOrden(Integer cantidad, Integer costoUnatio,OrdenCompra id_orden, Producto id_producto) {
+        this.cantidad = cantidad;
+        this.costoUnitarioCompra= costoUnatio;
+        this.pk_infoOrden = new InfoExtraOrdenPK(id_orden, id_producto);
+    }
+
+    public InfoExtraOrden(){;}
 
     public Integer getCantidad() {
         return cantidad;
@@ -35,12 +43,6 @@ public class InfoExtraOrden {
 
     public void setPk_infoOrden(InfoExtraOrdenPK pk_infoOrden) {
         this.pk_infoOrden = pk_infoOrden;
-    }
-
-    public InfoExtraOrden(Integer cantidad, Integer costoUnatio,OrdenCompra id_orden, Producto id_producto) {
-        this.cantidad = cantidad;
-        this.costoUnitarioCompra= costoUnatio;
-        this.pk_infoOrden = new InfoExtraOrdenPK(id_orden, id_producto);
     }
     
 }

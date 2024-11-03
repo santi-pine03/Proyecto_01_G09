@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Ciudad")
+@Table(name = "Ciudades")
 
 public class Ciudad {
     @Id 
