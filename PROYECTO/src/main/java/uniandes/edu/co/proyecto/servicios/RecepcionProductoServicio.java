@@ -1,5 +1,6 @@
 package uniandes.edu.co.proyecto.servicios;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -30,18 +31,22 @@ public class RecepcionProductoServicio {
     }
     
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public void Registar_Ingreso_Productos_Bodega(Integer id_orden, Integer id_bodega) {
+    public Collection<String[]> Registar_Ingreso_Productos_Bodega(Integer id_orden, Integer id_bodega) {
             OrdenCompra orden = OrdenRepository.darOrdenCompra(id_orden); // Obtener la orden de compra. 
             System.out.println(orden);      
             RPRepository.insertarRecepcionProducto(orden.getFechaEntrega(),orden.getId(),id_bodega);//Se crea la recepcion de producto de la Orden de Compra
             Collection<Object[]> productosOrden = OrdenRepository.darProductosOrdenCompra(id_orden); //Se obtienen todos los productos de la Orden de Compra
+            Collection<String[]> respuesta = new ArrayList<String[]>(); //Esto sera lo que se mostrara como respuesta
             for(Object[] IEorden : productosOrden){
                 //Se actualiza la cantidad de existencias y costo promedio en la bodega de los productos de la Orden de Compra
                 String nuevo = Arrays.toString(IEorden);
                 String sinCorchetes = nuevo.substring(1, nuevo.length() - 1); // Eliminar los corchetes
                 String[] elementos = sinCorchetes.split(", ");
+                respuesta.add(elementos); // Se añaden los productos de la orden de compra a la respuesta para mostrarlos
                 bodegaRepository.actualizarCostoPromedioYCantExistencias(Integer.parseInt(elementos[3]), Integer.parseInt(elementos[2]), Integer.parseInt(elementos[1]), id_bodega);
             }
             OrdenRepository.ordenCompraEntregada(id_orden);//Se actualiza la Orden de Compra como ENTREGADA
+
+            return respuesta;
     }
 }
