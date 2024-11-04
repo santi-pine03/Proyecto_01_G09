@@ -61,11 +61,26 @@ public class RecepcionProductoController {
         }
     }
     @GetMapping("/recepcionproductos/serializable/{id_sucursal}/{id_bodega}")
-    public Map<String, Object> mostrarDocSerializable(@PathVariable("id_sucursal") Integer id_sucursal, @PathVariable("id_bodega") Integer id_bodega){
-        return RPServicio.darRegistros(id_sucursal, id_bodega);
+    public  ResponseEntity<?> mostrarDocSerializable(@PathVariable("id_sucursal") Integer id_sucursal, @PathVariable("id_bodega") Integer id_bodega){
+        try {
+            return ResponseEntity.ok(RPServicio.darRegistros(id_sucursal, id_bodega));
+        }
+        catch(Exception e){
+            logger.error("Error al mostrar: ", e);
+            return new ResponseEntity<>("Error al mostrar", HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
     }
     @GetMapping("/recepcionproductos/read/{id_sucursal}/{id_bodega}")
-    public Map<String, Object> mostrarDocRead(@PathVariable("id_sucursal") Integer id_sucursal, @PathVariable("id_bodega") Integer id_bodega){
-        return RPServicio.darRegistross(id_sucursal, id_bodega);
+    public ResponseEntity<?> mostrarDocRead(@PathVariable("id_sucursal") Integer id_sucursal, @PathVariable("id_bodega") Integer id_bodega){
+        try {
+            return ResponseEntity.ok(RPServicio.darRegistross(id_sucursal, id_bodega));
+        }
+        catch(Exception e){
+            logger.error("Error al mostrar: ", e);
+            return new ResponseEntity<>("Error al mostar", HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
     }
+    
 }

@@ -57,10 +57,11 @@ public class RecepcionProductoServicio {
             return response;
     }
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public Map<String, Object> darRegistros(Integer id_sucursal, Integer id_bodega){
+    public Map<String, Object> darRegistros(Integer id_sucursal, Integer id_bodega) throws InterruptedException{
         Map<String, Object> response = new HashMap<>();
         response.put("nombreSucursal", bodegaRepository.darBodega(id_bodega).getId_sucursal().getNombre());
         response.put("nombreBodega", bodegaRepository.darBodega(id_bodega).getNombre());
+        Thread.sleep(30000);
         response.put("RecepcionProductos:", RPRepository.darDocumentos(id_bodega));
 
 
@@ -68,10 +69,12 @@ public class RecepcionProductoServicio {
 
     }
     @Transactional(isolation = Isolation.READ_COMMITTED)
-    public Map<String, Object> darRegistross(Integer id_sucursal, Integer id_bodega){
+    public Map<String, Object> darRegistross(Integer id_sucursal, Integer id_bodega) throws InterruptedException{
+        
         Map<String, Object> response = new HashMap<>();
         response.put("nombreSucursal", bodegaRepository.darBodega(id_bodega).getId_sucursal().getNombre());
         response.put("nombreBodega", bodegaRepository.darBodega(id_bodega).getNombre());
+        Thread.sleep(30000);
         response.put("RecepcionProductos:", RPRepository.darDocumentos(id_bodega));
 
 
