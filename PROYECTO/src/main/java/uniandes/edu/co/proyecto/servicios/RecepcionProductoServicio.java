@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import uniandes.edu.co.proyecto.modelo.InfoExtraOrden;
 import uniandes.edu.co.proyecto.modelo.OrdenCompra;
+import uniandes.edu.co.proyecto.modelo.Proveedor;
+import uniandes.edu.co.proyecto.modelo.RecepcionProducto;
 import uniandes.edu.co.proyecto.repositorio.BodegaRepository;
 import uniandes.edu.co.proyecto.repositorio.OrdenCompraRepository;
 import uniandes.edu.co.proyecto.repositorio.RecepcionProductoRepository;
@@ -54,4 +56,27 @@ public class RecepcionProductoServicio {
 
             return response;
     }
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    public Map<String, Object> darRegistros(Integer id_sucursal, Integer id_bodega){
+        Map<String, Object> response = new HashMap<>();
+        response.put("nombreSucursal", bodegaRepository.darBodega(id_bodega).getId_sucursal().getNombre());
+        response.put("nombreBodega", bodegaRepository.darBodega(id_bodega).getNombre());
+        response.put("RecepcionProductos:", RPRepository.darDocumentos(id_bodega));
+
+
+        return response;
+
+    }
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public Map<String, Object> darRegistross(Integer id_sucursal, Integer id_bodega){
+        Map<String, Object> response = new HashMap<>();
+        response.put("nombreSucursal", bodegaRepository.darBodega(id_bodega).getId_sucursal().getNombre());
+        response.put("nombreBodega", bodegaRepository.darBodega(id_bodega).getNombre());
+        response.put("RecepcionProductos:", RPRepository.darDocumentos(id_bodega));
+
+
+        return response;
+
+    }
+
 }

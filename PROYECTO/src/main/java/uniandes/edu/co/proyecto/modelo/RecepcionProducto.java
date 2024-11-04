@@ -1,6 +1,6 @@
 package uniandes.edu.co.proyecto.modelo;
 
-import java.text.DateFormat;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -21,19 +21,19 @@ public class RecepcionProducto {
 
     private Integer id; 
     @JsonFormat(pattern ="dd-MMM-yyyy")
-    private DateFormat fechaRecepcion;
+    private Date fecharecepcion;
     @ManyToOne
     @JoinColumn(name = "id_bodega", referencedColumnName = "id")
     private Bodega id_bodega;
     @ManyToOne
-    @JoinColumn(name = "id_orden", referencedColumnName = "id")
-    private OrdenCompra id_orden;
+    @JoinColumn(name = "id_ordencompra", referencedColumnName = "id")
+    private OrdenCompra id_ordencompra;
 
-    public RecepcionProducto(Integer id, DateFormat fechaRecepcion, OrdenCompra id_orden, Bodega id_bodega){
+    public RecepcionProducto(Integer id, Date fecharecepcion, OrdenCompra id_ordencompra, Bodega id_bodega){
         this.id = id;
-        this.fechaRecepcion = fechaRecepcion;
+        this.fecharecepcion = fecharecepcion;
         this.id_bodega= id_bodega;
-        this.id_orden= id_orden;
+        this.id_ordencompra= id_ordencompra;
         
     }
 
@@ -45,8 +45,8 @@ public class RecepcionProducto {
         return id;
     }
 
-    public DateFormat getFechaRecepcion() {
-        return fechaRecepcion;
+    public Date getFechaRecepcion() {
+        return fecharecepcion;
     }
 
     // metodo set 
@@ -54,8 +54,8 @@ public class RecepcionProducto {
         this.id = id;
     }
 
-    public void setFechaRecepcion(DateFormat fechaRecepcion) {
-        this.fechaRecepcion = fechaRecepcion;
+    public void setFechaRecepcion(Date fecharecepcion) {
+        this.fecharecepcion = fecharecepcion;
     }
 
 
@@ -75,11 +75,11 @@ public class RecepcionProducto {
     }
 
     public OrdenCompra getId_orden() {
-        return id_orden;
+        return id_ordencompra;
     }
 
-    public void setId_orden(OrdenCompra id_orden) {
-        this.id_orden = id_orden;
+    public void setId_orden(OrdenCompra id_ordencompra) {
+        this.id_ordencompra = id_ordencompra;
     }
 
     

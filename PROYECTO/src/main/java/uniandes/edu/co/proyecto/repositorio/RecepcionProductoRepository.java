@@ -18,8 +18,14 @@ public interface RecepcionProductoRepository extends JpaRepository<RecepcionProd
     @Query(value = "INSERT INTO RECEPCIONPRODUCTOS (id,fecharecepcion,id_bodega,id_ordencompra) VALUES(idRecepcion.nextval, :fecharecepcion, :id_bodega, :id_orden)", nativeQuery = true)
     void insertarRecepcionProducto(@Param("fecharecepcion") Date fecharecepcion, @Param("id_orden")Integer id_orden, @Param("id_bodega")Integer id_bodega);
 
-    @Query(value = "SELECT * FROM RECEPCIONPRODUCTOS WHERE id_bodega = :id_bodega AND fechaRecepcion BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW()", nativeQuery = true)
-    Collection<RecepcionProducto> darDocumentos(@Param("id_sucursal") Integer id_sucursal,@Param("id_bodega") Integer id_bodega);
+
+    @Transactional
+    @Query(value = "SELECT * FROM RECEPCIONPRODUCTOS WHERE id_bodega = :id_bodega AND fechaRecepcion BETWEEN SYSDATE - 30 AND SYSDATE", nativeQuery = true)
+    Collection<RecepcionProducto> darDocument(@Param("id_bodega") Integer id_bodega);
+    
+    @Transactional
+    @Query(value = "SELECT P.*, c.nit_proveedor FROM RecepcionProductos p Inner join Ordencompras c ON p.id_ordencompra = c.id WHERE fechaRecepcion BETWEEN SYSDATE - 30 AND SYSDATE", nativeQuery = true)
+    Collection<Object[]> darDocumentos(@Param("id_bodega") Integer id_bodega);
 
 }
 
