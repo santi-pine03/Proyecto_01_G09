@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import uniandes.edu.co.proyecto.modelo.Bodega;
+import uniandes.edu.co.proyecto.modelo.OrdenCompra;
 import uniandes.edu.co.proyecto.repositorio.BodegaRepository.RespuestaPorcentajeOcupacionBodega;
 import uniandes.edu.co.proyecto.repositorio.RecepcionProductoRepository;
 import uniandes.edu.co.proyecto.servicios.RecepcionProductoServicio;
@@ -37,9 +38,17 @@ public class RecepcionProductoController {
     public ResponseEntity<?> guardarRecepcionProducto(@PathVariable("id_orden") Integer id_orden, @PathVariable("id_bodega") Integer id_bodega){
 
         try{
-            Collection<String[]> Respuesta = RPServicio.Registar_Ingreso_Productos_Bodega(id_orden, id_bodega);
+            Map<String, Object> Respuesta = RPServicio.Registar_Ingreso_Productos_Bodega(id_orden, id_bodega);
             List<Map<String, String>> responseList = new ArrayList<>();
-            for (String[] ocupa : Respuesta) {
+            Collection<String[]> detalle = (Collection<String[]>) Respuesta.get("detalle");
+            OrdenCompra orden = (OrdenCompra) Respuesta.get("encabezado");
+            Map<String, String> encabezado = new HashMap<>();
+            encabezado.put("Fecha Ingreso", orden.getFechaEntrega().toString());
+            encabezado.put("Sucursal", orden.getId_sucursal().getNombre());
+            encabezado.put("Bodega", id_bodega.toString());
+            encabezado.put("Proveedor", orden.getNit_proveedor().getNombre());
+            responseList.add(encabezado);
+            for (String[] ocupa : detalle) {
             Map<String, String> response = new HashMap<>();
             response.put("id_producto", ocupa[1]);
             response.put("cantidad", ocupa[2]);

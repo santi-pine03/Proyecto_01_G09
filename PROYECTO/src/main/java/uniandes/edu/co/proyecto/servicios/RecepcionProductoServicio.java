@@ -3,7 +3,9 @@ package uniandes.edu.co.proyecto.servicios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
@@ -31,7 +33,8 @@ public class RecepcionProductoServicio {
     }
     
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public Collection<String[]> Registar_Ingreso_Productos_Bodega(Integer id_orden, Integer id_bodega) {
+    public Map<String, Object> Registar_Ingreso_Productos_Bodega(Integer id_orden, Integer id_bodega) {
+            Map<String, Object> response = new HashMap<>();//Mapa que tendra el encabezado y el detalle de la respuesta
             OrdenCompra orden = OrdenRepository.darOrdenCompra(id_orden); // Obtener la orden de compra. 
             System.out.println(orden);      
             RPRepository.insertarRecepcionProducto(orden.getFechaEntrega(),orden.getId(),id_bodega);//Se crea la recepcion de producto de la Orden de Compra
@@ -46,7 +49,9 @@ public class RecepcionProductoServicio {
                 bodegaRepository.actualizarCostoPromedioYCantExistencias(Integer.parseInt(elementos[3]), Integer.parseInt(elementos[2]), Integer.parseInt(elementos[1]), id_bodega);
             }
             OrdenRepository.ordenCompraEntregada(id_orden);//Se actualiza la Orden de Compra como ENTREGADA
+            response.put("encabezado", orden);
+            response.put("detalle", respuesta);
 
-            return respuesta;
+            return response;
     }
 }
